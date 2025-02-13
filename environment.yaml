@@ -8,8 +8,8 @@ dependencies:
     - dash
     - dash-bootstrap-components
     - plotly
-    - tabulate  # df.to_markdown()
-    - lxml  # pd.read_html()
+    - tabulate  
+    - lxml  
     - r-base
     - r-tidyverse
     - r-shiny
@@ -19,5 +19,10 @@ dependencies:
     - pip:
         - dash-vega-components
         - gdown
-        - zipfile36  # Only needed for Python <3.7
+        - zipfile36  
+    - pandas  
+    - glob2   
+    - os      
+
+
 
