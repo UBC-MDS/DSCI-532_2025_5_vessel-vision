@@ -1,4 +1,4 @@
-# Vessel Vision
+# Vessel Vision 🚢📜 🌊 🗺️ 🚢🌊📊📍
 
 ## 1. Introduction
 This project focuses on extracting and processing Automatic Identification System (AIS) data for maritime traffic analysis. The data is sourced from the National Oceanic and Atmospheric Administration (NOAA), a scientific agency under the U.S. Department of Commerce, which provides valuable insights into oceanic, atmospheric, and maritime conditions.
