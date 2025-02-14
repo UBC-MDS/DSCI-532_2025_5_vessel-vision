@@ -27,7 +27,7 @@ NOTE: you may not edit an .md file under main. To prevent this from accidentally
 * Consistency is important! Members are expected to ensure homogeneity of style, formatting, and naming conventions.
 
 ## Code of Conduct
-Please note that this project is released with a Code of Conduct. By contributing to this project, you agree to abide by its terms.
+Please note that this project is released with a Code of Conduct and it can be got [here](https://github.com/UBC-MDS/DSCI-532_2025_5_vessel-vision/blob/main/CODE_OF_CONDUCT.md). By contributing to this project, you agree to abide by its terms.
 
 ### Attribution
 These contributing guidelines were inspired by the [Breast_Cancer_Predictor_Project](https://github.com/ttimbers/breast_cancer_predictor).
