@@ -1,28 +1,30 @@
-name: 'vessel-vision'
+name: vessel-vision
 channels:
-    - conda-forge
-    - defaults
+  - conda-forge
+  - defaults
 dependencies:
-    - ipykernel
-    - altair-all
-    - dash
-    - dash-bootstrap-components
-    - plotly
-    - tabulate  
-    - lxml  
-    - r-base
-    - r-tidyverse
-    - r-shiny
-    - r-languageserver
-    - r-plotly
-    - pip
-    - pip:
-        - dash-vega-components
-        - gdown
-        - zipfile36  
-    - pandas  
-    - glob2   
-    - os      
-
-
-
+  - python  
+  - ipykernel
+  - ipython=7.31.1
+  - jupyterlab  
+  - backcall  
+  - numpy  
+  - pytz  
+  - pandas  
+  - altair  
+  - dash
+  - dash-bootstrap-components
+  - plotly
+  - tabulate  
+  - lxml  
+  - r-base
+  - r-tidyverse
+  - r-shiny
+  - r-languageserver
+  - r-plotly
+  - glob2  
+  - pip
+  - pip:
+      - dash-vega-components
+      - gdown
+      - zipfile36
