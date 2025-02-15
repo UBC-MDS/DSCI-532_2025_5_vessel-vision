@@ -1,4 +1,4 @@
-# **Vessel Vision Dashboard Proposal**
+# Vessel Vision Dashboard Proposal
 
 ## **1. Motivation and Purpose**
 
