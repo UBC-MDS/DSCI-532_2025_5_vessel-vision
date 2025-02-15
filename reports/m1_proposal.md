@@ -47,10 +47,10 @@ The dataset contains 1,048,575 records, each with 17 associated AIS variables. B
 
 We plan to visualize the following key AIS variables to understand vessel movements and operational patterns. This dashboard will help our target audience address the research questions outlined in the next section. For example:
 
-**Vessel Identification & Characteristics** (`MMSI`, `VesselType`, `Cargo Type`, etc.)
-**Traffic Condition**(`SOG`,`BaseDateTime`, etc.)
-**Port Arrivals & Departures**(`COG`,`Status`, `LAT`, `LON`, etc.)
-**Anchored Vessel activity** (`Status`,`BaseDateTime`, `MMSI`, etc.)
+- **Vessel Identification & Characteristics** (`MMSI`, `VesselType`, `Cargo Type`, etc.)
+- **Traffic Condition**(`SOG`,`BaseDateTime`, etc.)
+- **Port Arrivals & Departures**(`COG`,`Status`, `LAT`, `LON`, etc.)
+- **Anchored Vessel activity** (`Status`,`BaseDateTime`, `MMSI`, etc.)
 ...
 
 ### **Planned Data Processing and Feature Engineering**
