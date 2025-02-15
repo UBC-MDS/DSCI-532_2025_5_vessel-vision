@@ -1,4 +1,4 @@
-# Vessel Vision 🚢📜 🌊 🗺️ 🚢🌊📊📍
+# Vessel Vision 🚢🌊📊🗺️
 
 ## 1. Introduction
 This project focuses on extracting and processing Automatic Identification System (AIS) data for maritime traffic analysis. The data is sourced from the National Oceanic and Atmospheric Administration (NOAA), a scientific agency under the U.S. Department of Commerce, which provides valuable insights into oceanic, atmospheric, and maritime conditions.
@@ -13,15 +13,6 @@ These dates were selected due to the heightened shipping activity typically obse
 
 ## 2. About AIS Data
 AIS (Automatic Identification System) is a vital tracking system used for identifying and locating vessels. It serves essential purposes in navigation, safety, and maritime traffic monitoring. AIS data is continuously broadcasted by vessels and received by land stations and satellites.
-
-### Key Fields in AIS Data:
-- **MMSI**: Maritime Mobile Service Identity, a unique identifier for each vessel.
-- **Timestamp**: The date and time when the AIS message was recorded.
-- **Latitude & Longitude**: Geographical coordinates of the vessel.
-- **Speed (knots)**: Speed of the vessel over the ground.
-- **Course (degrees)**: The direction in which the vessel is traveling.
-- **Heading (degrees)**: The actual heading or direction of the vessel.
-- **Ship Type**: Classification of the vessel (e.g., cargo, tanker, fishing vessel).
 
 ---
 
@@ -47,7 +38,7 @@ The data extraction process is automated through Python scripts. The flow is as 
    - Run the `data_extraction.ipynb` script to download and extract the raw AIS data.
    
 3. **Data Preprocessing**:
-   - Run the `data_preprocessing.ipynb` script to clean, process, and organize the extracted data.
+   - Run the `data_preprocessing.ipynb` script to clean, process, and organize the extracted data. This may take 3-4 mins.
    - After preprocessing, the cleaned dataset will be saved in the `data/processed/` folder under the filename `ais_west_coast.csv`.
 
 ---
@@ -67,7 +58,7 @@ Ensure that all necessary dependencies are installed by setting up the environme
 conda env create -f environment.yaml
 conda activate vessel-vision
 ```
-### Step 2: Setting Up the Environment
+### Step 2: extract and Preprocess the Data
 1. Run the data_extraction.ipynb script to download and extract the AIS data.
 2. Run the data_preprocessing.ipynb script to clean and preprocess the data.
 
