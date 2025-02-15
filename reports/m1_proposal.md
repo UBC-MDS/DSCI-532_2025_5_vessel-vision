@@ -66,7 +66,7 @@ These dates were selected due to the heightened shipping activity typically obse
 
 ## **4. App Sketch & Brief Description**
 
-![sketch](https://github.com/user-attachments/assets/ddc314c2-4008-46a3-b55d-09bf40f8d603)
+![sketch](../img/sketch.png)
 
 
 The app contains a landing page that shows the following KPIs
