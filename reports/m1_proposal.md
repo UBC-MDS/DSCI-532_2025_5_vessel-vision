@@ -66,8 +66,15 @@ These dates were selected due to the heightened shipping activity typically obse
 
 ## **4. App Sketch & Brief Description**
 
+![sketch](https://github.com/user-attachments/assets/ddc314c2-4008-46a3-b55d-09bf40f8d603)
 
-
+The app contains a landing page that shows the following KPIs
+1- Traffic Comparison by Hour – Compare movement trends between Dec 31 and Jan 1
+2- Number of Arrivals & Departures per Port
+3- Total Number of Unique Vessels
+4- Total Number of Anchored Vessels – Count of vessels marked with "anchored" status.
+5- Maximum Time Anchored – The longest duration a vessel remained anchored on a given day
+for vessel activity in the Pacific Northwest. From a datepicker in the top-right corner, users can filter out dates from the distribution display, by day (whether it is New Year's Eve 2023 or New Year's Day 2024) which will also impact the data that gets displayed in the number billboards and on the map. The map has a legend describing types of boat categories of interest coded by colour. The boats are displayed as semi-transparent circles (rather than boat symbols, for visibility purposes) scaled by size. Additionally, a tooltip can be added to deliver statistics and further information about each vessel, which when their circle gets selected, makes the circle opaque to provide feedback to the user about which vessel they selected so they may easily select another afterward.
 ---
 
 
