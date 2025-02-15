@@ -58,7 +58,7 @@ Ensure that all necessary dependencies are installed by setting up the environme
 conda env create -f environment.yaml
 conda activate vessel-vision
 ```
-### Step 2: extract and Preprocess the Data
+### Step 2: Extract and Preprocess the Data
 1. Run the data_extraction.ipynb script to download and extract the AIS data.
 2. Run the data_preprocessing.ipynb script to clean and preprocess the data.
 
