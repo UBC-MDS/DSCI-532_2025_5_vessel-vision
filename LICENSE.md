@@ -1,10 +1,10 @@
 # License
 
-## Dashboard Proposal
+## Analysis Report
 
 Copyright (c) 2023
 
-This proposal (source contained in the [`vessel-vission` repository](https://github.com/UBC-MDS/DSCI-532_2025_5_vessel-vision) is made available under the **Attribution-NonCommercial-ShareAlike 4.0 International** ([CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)). 
+This report (source contained in the [`vessel-vission` repository](https://github.com/UBC-MDS/DSCI-532_2025_5_vessel-vision) is made available under the **Attribution-NonCommercial-ShareAlike 4.0 International** ([CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)). 
 
 This is a human-readable summary of (and not a substitute for) the [license](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode).
 
