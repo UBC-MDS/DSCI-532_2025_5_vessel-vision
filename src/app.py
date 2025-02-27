@@ -1,18 +1,16 @@
-import os  # 
+import os
 import pandas as pd
 import plotly.express as px
 from dash import Dash, dcc, html
-from flask import Flask  
-
+from flask import Flask
+from data import load_data
 
 server = Flask(__name__)
 
-
 app = Dash(__name__, server=server)
 
-# Load AIS dataset
-data_path = "data/processed/ais_west_coast.csv"
-df = pd.read_csv(data_path)
+# Load AIS dataset using the data.py module
+df = load_data()
 
 # Keep only the latest record per vessel (MMSI) to show unique vessels
 df_unique = df.sort_values(by="BaseDateTime", ascending=False).drop_duplicates(subset="MMSI")
@@ -38,7 +36,6 @@ app.layout = html.Div([
         style={'height': '80vh', 'width': '100%'}
     )
 ])
-
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 10000))  # Get PORT from Render
