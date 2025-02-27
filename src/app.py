@@ -3,6 +3,8 @@ import pandas as pd
 import plotly.express as px
 from dash import Dash, dcc, html
 from flask import Flask
+import sys
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from data import load_data
 
 server = Flask(__name__)
