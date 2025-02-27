@@ -62,12 +62,15 @@ conda activate vessel-vision
 1. Run the data_extraction.ipynb script to download and extract the AIS data.
 2. Run the data_preprocessing.ipynb script to clean and preprocess the data.
 
-### Step 3: Running the Dashboard
+### Step 3: Installing Dependencies and Running the Dashboard  
 Run the following command to start the Dash web application:
+```bash
+python -m pip install -r requirements.txt
+```
+Then, start the Dash web application:
 ```bash
 python app.py
 ```
-
 This will launch a web dashboard that shows the AIS vessel tracking map.
-![AIS Map](img/AIS_MAP.png)
-
+An interactive dashboard is available to visualize vessel positions on a map.  
+👉 **[View on Render](https://vessel-vision.onrender.com)**  
