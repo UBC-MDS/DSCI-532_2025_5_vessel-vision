@@ -1,9 +1,14 @@
+import os  # 
 import pandas as pd
 import plotly.express as px
 from dash import Dash, dcc, html
+from flask import Flask  
 
-# Initialize the Dash app
-app = Dash(__name__)
+
+server = Flask(__name__)
+
+
+app = Dash(__name__, server=server)
 
 # Load AIS dataset
 data_path = "data/processed/ais_west_coast.csv"
@@ -17,12 +22,12 @@ fig = px.scatter_mapbox(
     df_unique,
     lat="LAT",
     lon="LON",
-    color="VesselType",  # Different colors for different vessel types
+    color="VesselType",
     hover_data=["MMSI", "VesselName", "SOG", "COG", "Heading"],
     title="AIS Unique Vessel Positions",
     mapbox_style="open-street-map",
-    zoom=5,  # Adjust zoom level as needed
-    size_max=10  # Increase marker size
+    zoom=5,
+    size_max=10
 )
 
 # Layout with increased size for the scatter plot
@@ -30,10 +35,11 @@ app.layout = html.Div([
     html.H1("AIS Unique Vessel Tracking"),
     dcc.Graph(
         figure=fig,
-        style={'height': '80vh', 'width': '100%'}  # Increased size for the plot
+        style={'height': '80vh', 'width': '100%'}
     )
 ])
 
-# Run the app/dashboard
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 10000))  # Get PORT from Render
+    app.run_server(host="0.0.0.0", port=port)
