@@ -26,11 +26,11 @@ def register_callbacks(app, df):
 
         # Apply Vessel Type filter
         if vessel_type:
-            filtered_df = filtered_df[filtered_df["VesselType"] == vessel_type]
+            filtered_df = filtered_df[filtered_df["Vessel Type Name"] == vessel_type]
         
         # Apply Nearest Port filter
         if nearest_port:
-            filtered_df = filtered_df[filtered_df["NearestPort"] == nearest_port]
+            filtered_df = filtered_df[filtered_df["Nearest Port"] == nearest_port]
         
         # Apply Vessel Name filter
         if vessel_name:

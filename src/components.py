@@ -33,17 +33,32 @@ def create_filters(vessel_types, nearest_ports, vessel_names, dates):
 
 def create_map(filtered_df):
     """
-    This function generates the map with the filtered DataFrame.
+    This function generates a map with the filtered DataFrame.
+    It also adds summary information (total unique vessels) to the map title and as an annotation.
     """
+    # Calculate the total number of unique vessels based on MMSI
+    unique_count = filtered_df["MMSI"].nunique()
+    
+    # Create the map figure using Plotly Express
     fig = px.scatter_mapbox(
         filtered_df,
         lat="LAT",
         lon="LON",
         color="VesselType",
         hover_data=["MMSI", "VesselName", "SOG", "COG", "Heading"],
-        title="AIS Vessel Positions",
+        title=f"AIS Vessel Positions (Unique Vessels: {unique_count})",
         mapbox_style="open-street-map",
         zoom=5,
         size_max=10
     )
+    
+    # Add an annotation with the unique vessel count (optional)
+    fig.add_annotation(
+        text=f"Total Unique Vessels: {unique_count}",
+        xref="paper", yref="paper",
+        x=0.05, y=0.95,  # Position near the top-left of the map
+        showarrow=False,
+        font=dict(size=14, color="black")
+    )
+    
     return fig
