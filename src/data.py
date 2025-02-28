@@ -18,3 +18,5 @@ def load_data():
 
     return combined_df
 
+load_data()
+

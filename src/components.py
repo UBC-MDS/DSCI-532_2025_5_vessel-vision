@@ -1,6 +1,5 @@
 # Placeholder for reusable components
-import dash_core_components as dcc
-import dash_html_components as html
+
 import plotly.express as px
 
 def create_filters(vessel_types, nearest_ports, vessel_names, dates):
