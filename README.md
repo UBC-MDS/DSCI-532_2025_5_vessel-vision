@@ -40,7 +40,7 @@ You can also zoom in and out on the map to observe vessel movements and assess p
 
 There have been reports of the data not showing up for the cards or map. If this is the case or it is taking too long, please view it in local.
 
-Please note that in local the port chart loads first because we do not have to search as many rows for the output numbers, also the map is slow due to the computations in the tooltips. 
+Please note that in local the port chart loads first because we do not have to search as many rows for the output numbers, also the map is slow due to the computations in the tooltips for the same reason, and this is why you will see the port chart consistently loading first in this described manner. 
 
 ## Run in local
 
