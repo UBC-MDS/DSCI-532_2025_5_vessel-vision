@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 import dash_bootstrap_components as dbc
-from dash import Dash, dcc, html
+from dash import Dash, dcc, html, dash_table
 from flask import Flask
 import sys
 
@@ -11,6 +11,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from data import load_data
 from callbacks import register_callbacks
 from components import create_map
+from calculate_arrivals_departures import calculate_arrivals_departures
 
 server = Flask(__name__)
 
@@ -22,6 +23,9 @@ df = load_data()
 
 # Ensure consistent date format
 df['BaseDateTime'] = pd.to_datetime(df['BaseDateTime']).dt.strftime('%Y-%m-%d')
+
+# Calculate Number of Arrivals & Departures per Port
+df_port = calculate_arrivals_departures(df)
 
 # Function to create Bootstrap-styled summary cards
 def create_summary_card(title, value, color):
@@ -73,11 +77,30 @@ app.layout = dbc.Container([
         ), width=3)
     ], className="my-3"),
 
-    # Map Section
-    dbc.Row([
-        dbc.Col(dcc.Graph(id="map-output", style={'height': '60vh'}), width=12)
-    ], className="justify-content-center"),
+    # Port data Section 
+    dbc.Row([  
+        dbc.Col(
+            dbc.Card(
+                dbc.CardBody([
+                    html.H5("Number of Arrivals & Departures per Port", style={"fontFamily": "Arial, sans-serif"}),
+                    dash_table.DataTable(
+                        id="port-table",
+                        columns=[{"name": col, "id": col} for col in df_port.columns],
+                        data=df_port.to_dict("records"),
+                        page_size=5, 
+                        style_table={"overflowX": "auto", "margin":"auto", "border": "none", "fontFamily": "Arial, sans-serif"},
+                        style_header={"fontWeight": "bold", "border": "none", "fontFamily": "Arial, sans-serif"},
+                        style_cell={"textAlign": "center", "border": "none", "fontFamily": "Arial, sans-serif"},
+                        style_data={"border": "none"}
+                    )
+                ])
+            ), width=4
+        ),
 
+    # Map Section
+        dbc.Col(dcc.Graph(id="map-output", style={'height': '60vh'}), width=8
+        ),
+    ], align="center")
 ], fluid=True)
 
 # Register callbacks to update the map & summary stats

@@ -5,6 +5,7 @@ import pandas as pd
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from components import create_map
+from calculate_arrivals_departures import calculate_arrivals_departures
 
 def register_callbacks(app, df):
     """
@@ -14,6 +15,7 @@ def register_callbacks(app, df):
     @app.callback(
         [
             Output("map-output", "figure"), 
+            Output("port-table", "data"),
             Output("total-unique-vessels", "children"),
             Output("total-moving-vessels", "children"),
             Output("total-anchored-vessels", "children"),
@@ -63,7 +65,9 @@ def register_callbacks(app, df):
                 max_time_anchored = round(max_time_anchored.total_seconds() / 3600, 2)  # Convert to hours
         else:
             max_time_anchored = "N/A"  # If column doesn't exist
+        
+        # return updated Port table calculation(arrivals and departures)
+        port_table_df = calculate_arrivals_departures(filtered_df)
 
-    # Return updated map figure
-
-        return create_map(filtered_df), f"{total_unique_vessels:,}", f"{total_moving_vessels:,}", f"{total_anchored_vessels:,}", f"{max_time_anchored} hours"
+    # Return updated data
+        return create_map(filtered_df), port_table_df.to_dict("records"), f"{total_unique_vessels:,}", f"{total_moving_vessels:,}", f"{total_anchored_vessels:,}", f"{max_time_anchored} hours"
