@@ -23,7 +23,7 @@ Zoe Ren
 
 ## Demo GIF
 
-![ScreenRecording2025-03-01at9 30 50AM-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/3a4ba65e-dbee-4fc0-b9eb-4cb049078602)
+![demo](img/demo.gif)
 
 ---
 ## Dashboard Usage
@@ -36,6 +36,11 @@ You can also zoom in and out on the map to observe vessel movements and assess p
 
 👉 **[View on Render](https://vessel-vision.onrender.com)**  
 ---
+***IMPORTANT NOTE; PLEASE READ***
+
+There have been reports of the data not showing up for the cards or map. If this is the case or it is taking too long, please view it in local.
+
+Please note that in local the port chart loads first because we do not have to search as many rows for the output numbers, also the map is slow due to the computations in the tooltips. 
 
 ## Run in local
 
