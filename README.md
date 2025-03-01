@@ -1,56 +1,43 @@
 # Vessel Vision 🚢🌊📊🗺️
 
-## 1. Introduction
+## Introduction
 This project focuses on extracting and processing Automatic Identification System (AIS) data for maritime traffic analysis. The data is sourced from the National Oceanic and Atmospheric Administration (NOAA), a scientific agency under the U.S. Department of Commerce, which provides valuable insights into oceanic, atmospheric, and maritime conditions.
 
-The dataset used in this extraction process pertains to two specific dates:
-- **December 31, 2023** (New Year's Eve)
-- **January 1, 2024** (New Year's Day)
+The dataset captures vessel movements on **December 31, 2023** (New Year's Eve) and **January 1, 2024** (New Year's Day). These dates were selected due to the heightened shipping activity typically observed around the year-end, driven by operational surges and year-end deadlines.
 
-These dates were selected due to the heightened shipping activity typically observed around the year-end, which is driven by operational surges and year-end deadlines.
+The maritime industry in West Coast of North America requires real-time access to vessel movement data for effective decision-making. Traditional tools lack **interactive visualizations** and **custom filtering**, making it difficult to analyze trends efficiently. Our dashboard will address this gap by providing an intuitive and interactive platform to explore AIS (Automatic Identification System) data.
 
 ---
 
-## 2. About AIS Data
-AIS (Automatic Identification System) is a vital tracking system used for identifying and locating vessels. It serves essential purposes in navigation, safety, and maritime traffic monitoring. AIS data is continuously broadcasted by vessels and received by land stations and satellites.
+## Contributors
+
+Azin Piran
+
+Stephanie Wu
+
+Yasmin Hassan
+
+Zoe Ren
 
 ---
 
-## 3. Data Availability
-The AIS data for the chosen dates has already been downloaded from NOAA and can be accessed via the following public Google Drive link:
+## Demo GIF
 
-- **Download AIS Data**: [Google Drive Link for AIS Data](https://drive.google.com/drive/folders/1zxJuSRigLEg4iY1pnUgW-Z49s2TEKEip?usp=sharing)
-
-Once downloaded, store the files in the `data` folder of this project. You will then need to execute the two Python scripts (`data_extraction.py` and `data_preprocessing.py`) in the Jupyter notebook to process the data.
-
-### Additional Download Links:
-- **Download AIS Data 2023**: [NOAA Link for AIS Data 2023](https://www.coast.noaa.gov/htdata/CMSP/AISDataHandler/2023/index.html)
-- **Download AIS Data 2024**: [NOAA Link for AIS Data 2024](https://coast.noaa.gov/htdata/CMSP/AISDataHandler/2024/index.html)
+WIP
 
 ---
+## Dashboard Usage
 
-## 4. Data Extraction Process
-The data extraction process is automated through Python scripts. The flow is as follows:
+In the Dashboard, you can select different dates, vessel types, nearest ports, and vessel names to explore vessel tracking data. 
 
-1. **Environment Setup**: Ensure that the environment is set up correctly using the `environment.yaml` file provided. This file includes all necessary dependencies for the project.
+Through the charts and cards, you can gain insights into Traffic Comparison by Hour, the Number of Arrivals & Departures per Port, the Total Number of Unique Vessels, Moving Vessels, and Anchored Vessels, as well as the Maximum Time Anchored. 
 
-2. **Data Extraction**:
-   - Run the `data_extraction.ipynb` script to download and extract the raw AIS data.
-   
-3. **Data Preprocessing**:
-   - Run the `data_preprocessing.ipynb` script to clean, process, and organize the extracted data. This may take 3-4 mins.
-   - After preprocessing, the cleaned dataset will be saved in the `data/processed/` folder under the filename `ais_west_coast.csv`.
+You can also zoom in and out on the map to observe vessel movements and assess port congestion levels.
 
+👉 **[View on Render](https://vessel-vision.onrender.com)**  
 ---
 
-## 5. Dashboard Visualization
-Once the data is processed, a dashboard can be created to visualize the unique vessel positions on a map. This is achieved by running the following Python script:
-
-- **Dashboard**: To visualize the data, run the `app.py` script. This will launch an interactive web dashboard, which can be accessed in any browser.
-
----
-
-## 6. Instructions for Running the Project
+## Run in local
 
 ### Step 1: Setting Up the Environment
 Ensure that all necessary dependencies are installed by setting up the environment:
@@ -58,11 +45,8 @@ Ensure that all necessary dependencies are installed by setting up the environme
 conda env create -f environment.yaml
 conda activate vessel-vision
 ```
-### Step 2: Extract and Preprocess the Data
-1. Run the data_extraction.ipynb script to download and extract the AIS data.
-2. Run the data_preprocessing.ipynb script to clean and preprocess the data.
 
-### Step 3: Installing Dependencies and Running the Dashboard  
+### Step 2: Installing Dependencies and Running the Dashboard  
 Run the following command to start the Dash web application:
 ```bash
 python -m pip install -r requirements.txt
@@ -71,6 +55,26 @@ Then, start the Dash web application:
 ```bash
 python app.py
 ```
-This will launch a web dashboard that shows the AIS vessel tracking map.
-An interactive dashboard is available to visualize vessel positions on a map.  
-👉 **[View on Render](https://vessel-vision.onrender.com)**  
+
+This will launch the interactive web dashboard **Vessel Vision**.
+
+---
+
+## Data Availability
+The AIS data for the chosen dates are stored in the data folder in split form, our dashboard will process the data.
+
+### Additional Download Links:
+- **Download AIS Data 2023**: [NOAA Link for AIS Data 2023](https://www.coast.noaa.gov/htdata/CMSP/AISDataHandler/2023/index.html)
+- **Download AIS Data 2024**: [NOAA Link for AIS Data 2024](https://coast.noaa.gov/htdata/CMSP/AISDataHandler/2024/index.html)
+
+---
+
+## Get involved 
+
+Interested in contributing? Check out the [contributing guidelines](https://github.com/UBC-MDS/DSCI-532_2025_5_vessel-vision/blob/main/CONTRIBUTING.md). Please note that this project is released with a [Code of Conduct](https://github.com/UBC-MDS/DSCI-532_2025_5_vessel-vision/blob/main/CODE_OF_CONDUCT.md). By contributing to this project, you agree to abide by its terms.
+
+---
+
+## Contact us 
+
+If you want to report a problem or suggest an enhancement, please feel free to open an issue at this github repository [open an issue](https://github.com/UBC-MDS/DSCI-532_2025_5_vessel-vision/issues).
