@@ -12,7 +12,7 @@ Specifically, for the **Number of Arrivals & Departures per Port**, filtering by
 
 ## **2. Not-yet-implemented part of M1 Proposal**
 
-None.
+A graph which reppresented days with different colours in the legend, which would have potentially led to high dimensionality, has been scrapped from development.
 
 ## **3. Reflection on Best Practices of Effective Visualizations**
 
