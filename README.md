@@ -23,7 +23,7 @@ Zoe Ren
 
 ## Demo GIF
 
-WIP
+![ScreenRecording2025-03-01at9 30 50AM-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/3a4ba65e-dbee-4fc0-b9eb-4cb049078602)
 
 ---
 ## Dashboard Usage
