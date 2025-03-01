@@ -2,17 +2,17 @@
 
 ## **1. Implemented part of M1 Proposal**
 
-We have basically implemented all the features proposed in the M1 proposal, including the Traffic Comparison by Hour chart, the Number of Arrivals & Departures per Port table, the Total Number of Unique Vessels, Moving Vessels, and Anchored Vessels cards, the Maximum Time Anchored card, and the Activity Map, with data filtering based on December 31st and January 1st. The data is interactive, and filterable.
+We have basically implemented all the features proposed in the M1 proposal, including the Number of Arrivals & Departures per Port table, the Total Number of Unique Vessels, Moving Vessels, and Anchored Vessels cards, the Maximum Time Anchored card, and the Activity Map, with data filtering based on December 31st and January 1st. The data is interactive, and filterable.
 
-However, based on the discussion in the lab and the teacher's feedback, we did remove the "comparison" part from the dashboard. Initially, we planned to present a comparison between December 31st and January 1st in the dashboard. However, since there are only two days of data, the comparison is not very meaningful. Additionally, using dates as a line chart representation is quite uncommon. Given the large dataset, it is challenging to include multiple dates at this stage of the project. 
+However, based on the discussion in the lab and the teacher's feedback, we did remove the "comparison" part from the dashboard. Initially, we planned to present a comparison between December 31st and January 1st in the dashboard. However, since there is only one day of data, the comparison is not very meaningful. Additionally, using dates as a line chart representation is quite uncommon. Given the large dataset, it is challenging to include multiple dates at this stage of the project. 
 
-As a result, we decided to use a radio button to switch between the two days, displaying only the details of the selected day.
+As a result, we decided to use a radio button to represent the selected day, and symbolize the potential to scale to more days.
 
 Specifically, for the **Number of Arrivals & Departures per Port**, filtering by Nearest Port does not return data. Logically, if the intent is to view the total Number of Arrivals & Departures for a specific port, there is no need for filtering, as this information is already displayed in the component. Additionally, for anchored vessels, no data is returned either, as they do not have Arrivals or Departures events.
 
 ## **2. Not-yet-implemented part of M1 Proposal**
 
-A graph which reppresented days with different colours in the legend, which would have potentially led to high dimensionality, has been scrapped from development.
+A graph which represented days with different colours in the legend, which would have potentially led to high dimensionality, has been scrapped from development.
 
 ## **3. Reflection on Best Practices of Effective Visualizations**
 
