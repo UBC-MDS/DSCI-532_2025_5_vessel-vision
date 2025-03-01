@@ -55,9 +55,27 @@ def create_summary_card(title, value, color):
         style={"textAlign": "center", "margin": "10px", "backgroundColor": color, "color": "white"}
     )
 
+# Footer of dashboard
+def create_footer():
+    return dbc.Container(
+        dbc.Row(
+            dbc.Col([
+                html.Hr(), 
+                html.P("Vessel Vision, extract and process AIS data for maritime traffic analysis.", className="text-center", style={"fontWeight": "bold"}),
+                html.P("Developed by [DSCI-532-group5]: Azin Piran, Stephanie Wu, Yasmin Hassan, Zoe Ren", className="text-center"),
+                html.P([
+                    "GitHub Repository: " ,
+                    html.A("Vessel Vision", href="https://github.com/UBC-MDS/DSCI-532_2025_5_vessel-vision", target="_blank")],
+                    className="text-center"
+                ),
+                html.P(f"Last updated: 2025-03-01 ", className="text-center"),
+            ])
+        ), className="mt-4"
+    )
+
 # App layout
 app.layout = dbc.Container([
-    html.H1("🚢 AIS Unique Vessel Tracking", className="text-center my-4"),
+    html.H1("Vessel Vision - 🚢 AIS Unique Vessel Tracking", className="text-center my-4"),
 
     # Summary Metrics Row (Now Includes Maximum Time Anchored)
     dbc.Row([
@@ -104,6 +122,9 @@ app.layout = dbc.Container([
             dcc.Graph(id="map-output", style={'height': '60vh'}), width=8
         ),
     ], align="center"),
+
+    # Footer dection
+    create_footer()
 
 ], fluid=True)
 
