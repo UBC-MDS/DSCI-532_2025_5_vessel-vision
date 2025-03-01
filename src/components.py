@@ -1,6 +1,5 @@
 # Placeholder for reusable components
-import dash_core_components as dcc
-import dash_html_components as html
+
 import plotly.express as px
 
 def create_filters(vessel_types, nearest_ports, vessel_names, dates):
@@ -44,7 +43,7 @@ def create_map(filtered_df):
         filtered_df,
         lat="LAT",
         lon="LON",
-        color="VesselType",
+        color="Vessel Type Name",
         hover_data=["MMSI", "VesselName", "SOG", "COG", "Heading"],
         title=f"AIS Vessel Positions (Unique Vessels: {unique_count})",
         mapbox_style="open-street-map",
