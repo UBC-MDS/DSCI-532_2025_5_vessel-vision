@@ -2,7 +2,7 @@
 
 ## **1. Implemented part of M1 Proposal**
 
-We have basically implemented all the features proposed in the M1 proposal, including the Number of Arrivals & Departures per Port table, the Total Number of Unique Vessels, Moving Vessels, and Anchored Vessels cards, the Maximum Time Anchored card, and the Activity Map, with data filtering based on December 31st and January 1st. The data is interactive, and filterable.
+We have basically implemented all the features proposed in the M1 proposal, including the Number of Arrivals & Departures per Port table, the Total Number of Unique Vessels, Moving Vessels, and Anchored Vessels cards, the Maximum Time Anchored card, and the Activity Map, with data filtering base for January 1st.
 
 However, based on the discussion in the lab and the teacher's feedback, we did remove the "comparison" part from the dashboard. Initially, we planned to present a comparison between December 31st and January 1st in the dashboard. However, since there is only one day of data, the comparison is not very meaningful. Additionally, using dates as a line chart representation is quite uncommon. Given the large dataset, it is challenging to include multiple dates at this stage of the project. 
 
