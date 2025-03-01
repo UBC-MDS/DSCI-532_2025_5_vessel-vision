@@ -51,10 +51,19 @@ def register_callbacks(app, df):
         total_moving_vessels = filtered_df[filtered_df["SOG"] > 0]["MMSI"].nunique()
         total_anchored_vessels = filtered_df[filtered_df["SOG"] == 0]["MMSI"].nunique()
 
-        #Compute Maximum Time Anchored (if vessel was anchored)
+        # Ensure 'Duration Anchored' is in a consistent numeric format (Timedelta or hours as float)
         if "Duration Anchored" in filtered_df.columns:
+        # Convert to Timedelta if not already, or convert to hours as a float
+            filtered_df["Duration Anchored"] = pd.to_timedelta(filtered_df["Duration Anchored"], errors='coerce')
+        # Get the maximum time anchored in hours
             max_time_anchored = filtered_df["Duration Anchored"].max()
+            if pd.isna(max_time_anchored):
+                max_time_anchored = "N/A"  # If there's no valid time
+            else:
+                max_time_anchored = round(max_time_anchored.total_seconds() / 3600, 2)  # Convert to hours
         else:
             max_time_anchored = "N/A"  # If column doesn't exist
+
+    # Return updated map figure
 
         return create_map(filtered_df), f"{total_unique_vessels:,}", f"{total_moving_vessels:,}", f"{total_anchored_vessels:,}", f"{max_time_anchored} hours"
