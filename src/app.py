@@ -30,7 +30,7 @@ df_port = calculate_arrivals_departures(df)
 def create_port_table(df_port):
     """Create a Bootstrap Card containing the Port Table."""
     return dbc.Card(
-        dbc.CardBody([
+        dbc.CardBody([ 
             html.H5("Number of Arrivals & Departures per Port", style={"fontFamily": "Arial, sans-serif"}),
             dash_table.DataTable(
                 id="port-table",
@@ -48,7 +48,7 @@ def create_port_table(df_port):
 # Function to create Bootstrap-styled summary cards
 def create_summary_card(title, value, color):
     return dbc.Card(
-        dbc.CardBody([
+        dbc.CardBody([ 
             html.H5(title, className="card-title"),
             html.H3(id=value, children="...", className="card-text", style={"fontWeight": "bold"})
         ]),
@@ -99,12 +99,6 @@ app.layout = dbc.Container([
             placeholder="Select Nearest Port"
         ), width=3),
 
-        dbc.Col(dcc.Dropdown(
-            id="vessel-name-filter",
-            options=[{"label": name, "value": name} for name in df['VesselName'].dropna().unique()],
-            placeholder="Select Vessel Name"
-        ), width=3),
-
         dbc.Col(dcc.RadioItems(
             id="date-filter",
             options=[{"label": date, "value": date} for date in df['BaseDateTime'].dropna().unique()],
@@ -115,15 +109,24 @@ app.layout = dbc.Container([
 
     # Port data Section 
     dbc.Row([
-        dbc.Col(create_port_table(df_port), width=4),
+        dbc.Col(create_port_table(df_port), width=4, style={"height": "100%"}),
 
-    # Map Section
+        # Map Section with border, filling the height
         dbc.Col(
-            dcc.Graph(id="map-output", style={'height': '60vh'}), width=8
+            dcc.Graph(
+                id="map-output", 
+                style={
+                    'height': '100%',  # Ensure full height for the map
+                    'border': '2px solid #ddd',  # Add a light grey border
+                    'borderRadius': '5px'  # Optional: round corners of the border
+                }
+            ), 
+            width=8,
+            style={"height": "100%"}  # Ensure map column also takes up full available height
         ),
-    ], align="center"),
+    ], align="stretch", className="my-3"),
 
-    # Footer dection
+    # Footer section
     create_footer()
 
 ], fluid=True)

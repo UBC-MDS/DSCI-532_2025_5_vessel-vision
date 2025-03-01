@@ -24,11 +24,10 @@ def register_callbacks(app, df):
         [
             Input("vessel-type-filter", "value"),
             Input("nearest-port-filter", "value"),
-            Input("vessel-name-filter", "value"),
             Input("date-filter", "value")
         ]
     )
-    def update_map_and_stats(vessel_type, nearest_port, vessel_name, selected_date):
+    def update_map_and_stats(vessel_type, nearest_port, selected_date):
         # Start with the full dataframe
         filtered_df = df.copy()
 
@@ -40,9 +39,6 @@ def register_callbacks(app, df):
         if nearest_port:
             filtered_df = filtered_df[filtered_df["Nearest Port"] == nearest_port]
 
-        # Apply Vessel Name filter
-        if vessel_name:
-            filtered_df = filtered_df[filtered_df["VesselName"] == vessel_name]
 
         # Apply Date filter
         if selected_date:
