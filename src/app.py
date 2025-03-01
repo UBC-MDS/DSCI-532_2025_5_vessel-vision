@@ -19,7 +19,7 @@ server = Flask(__name__)
 app = Dash(__name__, server=server, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 # Load AIS dataset
-df = load_data()
+df = load_data(date_filter="2024-01-01")
 
 # Ensure consistent date format
 df['BaseDateTime'] = pd.to_datetime(df['BaseDateTime']).dt.strftime('%Y-%m-%d')

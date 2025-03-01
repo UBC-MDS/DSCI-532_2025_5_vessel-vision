@@ -2,7 +2,7 @@ import os
 import pandas as pd
 import numpy as np
 
-def load_data():
+def load_data(date_filter=None):
     # Define the root directory and the split-file folder path
     root_dir = os.path.dirname(os.path.abspath(__file__))  # This gets the absolute path of the current file (app.py is in src)
     split_file_dir = os.path.join(root_dir, '..', 'data', 'split-data')  # Navigate to data/split-file folder
@@ -19,6 +19,10 @@ def load_data():
     # ----------- preprocessing for maximum time anchored computation ----------------
     # Ensure the 'BaseDateTime' column is in datetime format after combining all files
     combined_df['BaseDateTime'] = pd.to_datetime(combined_df['BaseDateTime'], errors='coerce')  # Coerce invalid parsing to NaT
+
+    # Filter data by specific date if the date_filter is provided
+    if date_filter:
+        combined_df = combined_df[combined_df['BaseDateTime'].dt.date == pd.to_datetime(date_filter).date()]
 
     # Sort the dataframe by MMSI and BaseDateTime
     combined_df = combined_df.sort_values(by=['MMSI', 'BaseDateTime']).reset_index(drop=True)
@@ -41,6 +45,7 @@ def load_data():
 
     # Return combined dataframe
     return combined_df
+
 
 load_data()
 
