@@ -24,8 +24,26 @@ df = load_data()
 # Ensure consistent date format
 df['BaseDateTime'] = pd.to_datetime(df['BaseDateTime']).dt.strftime('%Y-%m-%d')
 
-# Calculate Number of Arrivals & Departures per Port
+# Function to create Bootstrap-styled Port table
 df_port = calculate_arrivals_departures(df)
+
+def create_port_table(df_port):
+    """Create a Bootstrap Card containing the Port Table."""
+    return dbc.Card(
+        dbc.CardBody([
+            html.H5("Number of Arrivals & Departures per Port", style={"fontFamily": "Arial, sans-serif"}),
+            dash_table.DataTable(
+                id="port-table",
+                columns=[{"name": col, "id": col} for col in df_port.columns],
+                data=df_port.to_dict("records"),
+                page_size=5,
+                style_table={"overflowX": "auto", "margin": "auto", "border": "none", "fontFamily": "Arial, sans-serif"},
+                style_header={"fontWeight": "bold", "border": "none", "fontFamily": "Arial, sans-serif"},
+                style_cell={"textAlign": "center", "border": "none", "fontFamily": "Arial, sans-serif"},
+                style_data={"border": "none"}
+            )
+        ])
+    )
 
 # Function to create Bootstrap-styled summary cards
 def create_summary_card(title, value, color):
@@ -78,29 +96,15 @@ app.layout = dbc.Container([
     ], className="my-3"),
 
     # Port data Section 
-    dbc.Row([  
-        dbc.Col(
-            dbc.Card(
-                dbc.CardBody([
-                    html.H5("Number of Arrivals & Departures per Port", style={"fontFamily": "Arial, sans-serif"}),
-                    dash_table.DataTable(
-                        id="port-table",
-                        columns=[{"name": col, "id": col} for col in df_port.columns],
-                        data=df_port.to_dict("records"),
-                        page_size=5, 
-                        style_table={"overflowX": "auto", "margin":"auto", "border": "none", "fontFamily": "Arial, sans-serif"},
-                        style_header={"fontWeight": "bold", "border": "none", "fontFamily": "Arial, sans-serif"},
-                        style_cell={"textAlign": "center", "border": "none", "fontFamily": "Arial, sans-serif"},
-                        style_data={"border": "none"}
-                    )
-                ])
-            ), width=4
-        ),
+    dbc.Row([
+        dbc.Col(create_port_table(df_port), width=4),
 
     # Map Section
-        dbc.Col(dcc.Graph(id="map-output", style={'height': '60vh'}), width=8
+        dbc.Col(
+            dcc.Graph(id="map-output", style={'height': '60vh'}), width=8
         ),
-    ], align="center")
+    ], align="center"),
+
 ], fluid=True)
 
 # Register callbacks to update the map & summary stats
