@@ -29,6 +29,30 @@ df_port = calculate_arrivals_departures(df)
 
 def create_port_table(df_port):
     """Create a Bootstrap Card containing the Port Table."""
+    vessel_types = df['Vessel Type Name'].dropna().unique()
+    
+    # Creating a list of Vessel Type Name and its color (this could be customized)
+    vessel_type_colors = {
+        "Cargo": "#FF6347",
+        "Fishing": "#4682B4",
+        "Passenger": "#32CD32",
+        "Tanker": "#FFD700"
+    }
+    
+    # Adding color information to the header
+    header_cells = [
+        {
+            "name": f"Vessel Type Name ({vessel_type})",
+            "id": vessel_type,
+            "style": {
+                "backgroundColor": vessel_type_colors.get(vessel_type, "#808080"),  # Default gray if type is missing
+                "color": "white",
+                "fontWeight": "bold"
+            }
+        }
+        for vessel_type in vessel_types
+    ]
+    
     return dbc.Card(
         dbc.CardBody([ 
             html.H5("Number of Arrivals & Departures per Port", style={"fontFamily": "Arial, sans-serif"}),
@@ -38,9 +62,19 @@ def create_port_table(df_port):
                 data=df_port.to_dict("records"),
                 page_size=5,
                 style_table={"overflowX": "auto", "margin": "auto", "border": "none", "fontFamily": "Arial, sans-serif"},
-                style_header={"fontWeight": "bold", "border": "none", "fontFamily": "Arial, sans-serif"},
-                style_cell={"textAlign": "center", "border": "none", "fontFamily": "Arial, sans-serif"},
-                style_data={"border": "none"}
+                style_header={
+                    "fontWeight": "bold", 
+                    "border": "none", 
+                    "fontFamily": "Arial, sans-serif",
+                    "backgroundColor": "#D3D3D3",  # Light gray background for header
+                },
+                style_cell={ 
+                    "textAlign": "center", 
+                    "border": "none", 
+                    "fontFamily": "Arial, sans-serif"
+                },
+                style_data={"border": "none"},
+                style_header_conditional=header_cells  # Apply conditional styling for coloring
             )
         ])
     )
@@ -59,22 +93,21 @@ def create_summary_card(title, value, color):
 def create_footer():
     return dbc.Container(
         dbc.Row(
-            dbc.Col([
+            dbc.Col([ 
                 html.Hr(), 
                 html.P("Vessel Vision, extract and process AIS data for maritime traffic analysis.", className="text-center", style={"fontWeight": "bold"}),
                 html.P("Developed by [DSCI-532-group5]: Azin Piran, Stephanie Wu, Yasmin Hassan, Zoe Ren", className="text-center"),
-                html.P([
-                    "GitHub Repository: " ,
-                    html.A("Vessel Vision", href="https://github.com/UBC-MDS/DSCI-532_2025_5_vessel-vision", target="_blank")],
-                    className="text-center"
-                ),
+                html.P([ 
+                    "GitHub Repository: ",
+                    html.A("Vessel Vision", href="https://github.com/UBC-MDS/DSCI-532_2025_5_vessel-vision", target="_blank")
+                ], className="text-center"),
                 html.P(f"Last updated: 2025-03-01 ", className="text-center"),
             ])
         ), className="mt-4"
     )
 
 # App layout
-app.layout = dbc.Container([
+app.layout = dbc.Container([ 
     html.H1("Vessel Vision - 🚢 AIS Unique Vessel Tracking", className="text-center my-4"),
 
     # Summary Metrics Row (Now Includes Maximum Time Anchored)
@@ -111,14 +144,22 @@ app.layout = dbc.Container([
     dbc.Row([
         dbc.Col(create_port_table(df_port), width=4, style={"height": "100%"}),
 
-        # Map Section with border, filling the height
+        # Map Section with border and light gray header
         dbc.Col(
             dcc.Graph(
                 id="map-output", 
                 style={
                     'height': '100%',  # Ensure full height for the map
-                    'border': '2px solid #ddd',  # Add a light grey border
-                    'borderRadius': '5px'  # Optional: round corners of the border
+                    'border': '1px solid #ccc',  # Add light border
+                    'borderRadius': '5px'  # Light border radius for rounded corners
+                },
+                figure={
+                    'data': create_map(df),  # Replace with actual map data (without color coding by vessel type)
+                    'layout': {
+                        'showlegend': False,  # Disable the legend
+                        'height': 600,  # Set height of the map
+                        'margin': {'r': 0, 't': 0, 'b': 0, 'l': 0}  # Remove margin
+                    }
                 }
             ), 
             width=8,
