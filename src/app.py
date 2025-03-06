@@ -1,10 +1,11 @@
+#main
 import os
 import pandas as pd
 import dash_bootstrap_components as dbc
 from dash import Dash, dcc, html, dash_table
 from flask import Flask
 import sys
-
+import plotly.graph_objects as go
 # Add the current directory to sys.path
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
@@ -20,9 +21,12 @@ app = Dash(__name__, server=server, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 # Load AIS dataset
 df = load_data(date_filter="2024-01-01")
+#df = df.head(100)
 
 # Ensure consistent date format
+df['Hour'] = df['BaseDateTime'].dt.hour
 df['BaseDateTime'] = pd.to_datetime(df['BaseDateTime']).dt.strftime('%Y-%m-%d')
+
 
 # Function to create Bootstrap-styled Port table
 df_port = calculate_arrivals_departures(df)
@@ -73,12 +77,107 @@ def create_footer():
         ), className="mt-4"
     )
 
+# # App layout
+# app.layout = dbc.Container([
+#     html.H1("Vessel Vision - 🚢 AIS Unique Vessel Tracking", className="text-center my-4"),
+
+#     # Summary Metrics Row (Now Includes Maximum Time Anchored)
+#     dbc.Row([
+#         dbc.Col(create_summary_card("Total Unique Vessels", "total-unique-vessels", "#007BFF"), width=3),
+#         dbc.Col(create_summary_card("Total Moving Vessels", "total-moving-vessels", "#28A745"), width=3),
+#         dbc.Col(create_summary_card("Total Anchored Vessels", "total-anchored-vessels", "#DC3545"), width=3),
+#         dbc.Col(create_summary_card("Max Time Anchored (hours)", "max-time-anchored", "#FFC107"), width=3),
+#     ], className="justify-content-center my-3"),
+
+#     # Filters Section
+#     dbc.Row([
+#         dbc.Col(dcc.Dropdown(
+#             id="vessel-type-filter",
+#             options=[{"label": vessel_type, "value": vessel_type} for vessel_type in df['Vessel Type Name'].dropna().unique()],
+#             placeholder="Select Vessel Type"
+#         ), width=3),
+
+#         dbc.Col(dcc.Dropdown(
+#             id="nearest-port-filter",
+#             options=[{"label": port, "value": port} for port in df['Nearest Port'].dropna().unique()],
+#             placeholder="Select Nearest Port"
+#         ), width=3),
+
+#         dbc.Col(dcc.RadioItems(
+#             id="date-filter",
+#             options=[{"label": date, "value": date} for date in df['BaseDateTime'].dropna().unique()],
+#             value=df['BaseDateTime'].min(),
+#             inline=True
+#         ), width=3)
+#     ], className="my-3"),
+
+#     # Port data Section 
+#     dbc.Row([
+#         dbc.Col(create_port_table(df_port), width=4, style={"height": "100%"}),
+
+#         # Map Section with border, filling the height
+#         dbc.Col(
+#             dcc.Graph(
+#                 id="map-output", 
+#                 style={
+#                     'height': '100%',  # Ensure full height for the map
+#                     'border': '2px solid #ddd',  # Add a light grey border
+#                     'borderRadius': '5px'  # Optional: round corners of the border
+#                 }
+#             ), 
+#             width=8,
+#             style={"height": "100%"}  # Ensure map column also takes up full available height
+#         ),
+#     ], align="stretch", className="my-3"),
+
+#     # Footer section
+#     create_footer()
+
+# ], fluid=True)
+
+# Add a trend line graph function
+def create_trend_graph(df):
+    # Example: Trend of total unique vessels over time
+    df_trend = df.groupby('Hour').size().reset_index(name='Unique Vessels')
+    trend_graph = go.Figure()
+    trend_graph.add_trace(go.Scatter(
+        x=df_trend['Hour'],
+        y=df_trend['Unique Vessels'],
+        mode='lines+markers',
+        name='Unique Vessels Over Time',
+        line=dict(color='blue')
+    ))
+    trend_graph.update_layout(
+        title='Trend of Unique Vessels Over Time',
+        xaxis_title='Hour of the Day',
+        yaxis_title='Number of Vessels',
+        template='plotly_white'
+    )
+
+    # Return the graph inside a dbc.Card to ensure proper layout handling
+    return dbc.Card(
+        dbc.CardBody([
+            dcc.Graph(
+                figure=trend_graph,
+                style={
+                    'height': '100%',
+                    'width': '100%',
+                    'border': '1px solid #ccc',  # Light border
+                    'borderRadius': '5px',  # Slightly rounded corners
+                    'padding': '5px'  # Padding inside the border
+                }
+            )
+        ]),
+        style={"flex": "1", "display": "flex", "flexDirection": "column"}  # Expands to fill space
+    )
 # App layout
-app.layout = dbc.Container([
+###################################################################################################################################
+# App layout
+app.layout = dbc.Container([ 
     html.H1("Vessel Vision - 🚢 AIS Unique Vessel Tracking", className="text-center my-4"),
 
     # Summary Metrics Row (Now Includes Maximum Time Anchored)
-    dbc.Row([
+    dbc.Row([ 
         dbc.Col(create_summary_card("Total Unique Vessels", "total-unique-vessels", "#007BFF"), width=3),
         dbc.Col(create_summary_card("Total Moving Vessels", "total-moving-vessels", "#28A745"), width=3),
         dbc.Col(create_summary_card("Total Anchored Vessels", "total-anchored-vessels", "#DC3545"), width=3),
@@ -86,7 +185,7 @@ app.layout = dbc.Container([
     ], className="justify-content-center my-3"),
 
     # Filters Section
-    dbc.Row([
+    dbc.Row([ 
         dbc.Col(dcc.Dropdown(
             id="vessel-type-filter",
             options=[{"label": vessel_type, "value": vessel_type} for vessel_type in df['Vessel Type Name'].dropna().unique()],
@@ -107,29 +206,49 @@ app.layout = dbc.Container([
         ), width=3)
     ], className="my-3"),
 
-    # Port data Section 
-    dbc.Row([
-        dbc.Col(create_port_table(df_port), width=4, style={"height": "100%"}),
+    # Port Data Section with Trend Graph Below the Table
+    dbc.Row([ 
+        dbc.Col([ 
+            create_port_table(df_port),  # Port table
+            create_trend_graph(df),      # Trend graph below table
+        ], width=4, style={
+            "height": "70vh", 
+            "display": "flex", 
+            "flexDirection": "column", 
+            "justifyContent": "flex-start"}),  # Port table and trend graph in first column
 
-        # Map Section with border, filling the height
+        # Map Section with border and light gray header
         dbc.Col(
             dcc.Graph(
                 id="map-output", 
                 style={
                     'height': '100%',  # Ensure full height for the map
-                    'border': '2px solid #ddd',  # Add a light grey border
-                    'borderRadius': '5px'  # Optional: round corners of the border
+                    'border': '1px solid #ccc',  # Add light border
+                    'borderRadius': '1px',  # Light border radius for rounded corners
+                    'padding': 0  # Remove any padding around the map
+                },
+                figure={
+                    'data': create_map(df),  # Replace with actual map data (without color coding by vessel type)
+                    'layout': {
+                        'showlegend': False,  # Disable the legend
+                        'height': 850,  # Set height of the map
+                        'margin': {'r': 0, 't': 0, 'b': 0, 'l': 0}  # Remove margin
+                    }
                 }
             ), 
             width=8,
-            style={"height": "100%"}  # Ensure map column also takes up full available height
+            style={"height": "70vh", "paddingleft": 0,"paddingRight": "20px", "backgroundColor": "#f0f0f0"}  # Background color for map section
         ),
     ], align="stretch", className="my-3"),
 
     # Footer section
     create_footer()
 
-], fluid=True)
+], fluid=True, style={"backgroundColor": "#e9ecef"})  # Background color for the entire container
+
+
+#######################################################################################################################################
+
 
 # Register callbacks to update the map & summary stats
 register_callbacks(app, df)
