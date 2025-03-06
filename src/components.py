@@ -44,7 +44,7 @@ def create_map(filtered_df):
         lat="LAT",
         lon="LON",
         color="Vessel Type Name",
-        hover_data=["MMSI", "VesselName", "SOG", "COG", "Heading"],
+        hover_data=["MMSI", "VesselName", "SOG"],
         title=f"AIS Vessel Positions (Unique Vessels: {unique_count})",
         mapbox_style="open-street-map",
         zoom=5,
