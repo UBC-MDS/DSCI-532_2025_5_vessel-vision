@@ -1,14 +1,26 @@
 # Vessel Vision Dashboard Reflection
 
-## **1. Implemented part of M1 Proposal**
+## **1. Implemented part from M2**
 
-We have now basically implemented all the features proposed in the M1 proposal, including the Number of Arrivals & Departures per Port table, the Total Number of Unique Vessels, Moving Vessels, and Anchored Vessels cards, the Maximum Time Anchored card, a modified trend graph accounting for layout space and increased dimensionality, and a reduced whitespace, increased size Activity Map, with data filtering base for January 1st.
+We have now basically implemented all the features proposed in the M1 proposal.
 
-However, based on the discussion in the lab and the teacher's feedback, we did remove the "comparison" part from the dashboard. Initially, we planned to present a comparison between December 31st and January 1st in the dashboard. However, since there is only one day of data, the comparison is not very meaningful. Additionally, using dates as a line chart representation is quite uncommon. Given the large dataset, it is challenging to include multiple dates at this stage of the project. 
+Bsed on what we've done in M1, we updated the dashboard according to the suggestion from instructor and TA.
 
-As a result, we decided to use a radio button to represent the selected day, and symbolize the potential to scale to more days.
+- Reduced file size to improve app loading speed.
+- Minimized white space around the map and across the application.
+- Modified the map legend for better readability.
+- Ensured all application elements fit on a single page without requiring scrolling.
+- Made the table responsive to filters, dynamically updating based on selected criteria.
 
-Specifically, for the **Number of Arrivals & Departures per Port**, filtering by Nearest Port does not return data. Logically, if the intent is to view the total Number of Arrivals & Departures for a specific port, there is no need for filtering, as this information is already displayed in the component. Additionally, for anchored vessels, no data is returned either, as they do not have Arrivals or Departures events. We also cleaned the data significantly such as into parquet files and dropping columns, in order to improve performance compatible with render.
+### Trend of Unique Vessels Over Time
+
+This component has been moved below the port table, and the footer and overall white space have been adjusted to ensure the entire page displays without scrolling. As it's dynamic, the table is now scrollable to maintain a clean and organized layout.
+
+### Number of Arrivals & Departures per Por
+
+This component has been modified into a dynamic table that returns results based on the applied filters. Additionally, it reflects the effect of multiple filters simultaneously. 
+
+For example, in the default state with no filters applied, it displays all values; when filtering for the Port of Vancouver, it returns only the departure and arrival data for Vancouver; when filtering for both the Port of Vancouver and the Cargo vessel type, it displays only the departure and arrival data for cargo vessels at Vancouver.
 
 ## **2. Corner case**
 
@@ -22,8 +34,6 @@ Given the simple and clear overall design, we believe it will be easy for the au
 
 ## **4. Achievements, Limitations, and Future Potential**
 
-We have created four data filters, with the remaining six components dynamically updating based on user input, resulting in a rich and interactive experience. 
-
-However, one limitation is the multiple filters, such as filtering by vessel name after selecting a nearest port. As vessel routes and cargo types are generally fixed, the ships appearing near a port are relatively consistent, making such filter combinations possibly not that meaningful. 
+We have created two data filters, with the remaining seven components dynamically updating based on user input, resulting in a rich and interactive experience. 
 
 In the future, we may explore incorporating more dates to further visualize the impact of different time periods.
