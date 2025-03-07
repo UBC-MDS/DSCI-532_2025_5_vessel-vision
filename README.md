@@ -3,7 +3,7 @@
 ## Introduction
 This project focuses on extracting and processing Automatic Identification System (AIS) data for maritime traffic analysis. The data is sourced from the National Oceanic and Atmospheric Administration (NOAA), a scientific agency under the U.S. Department of Commerce, which provides valuable insights into oceanic, atmospheric, and maritime conditions.
 
-The dataset captures vessel movements on **December 31, 2023** (New Year's Eve) and **January 1, 2024** (New Year's Day). These dates were selected due to the heightened shipping activity typically observed around the year-end, driven by operational surges and year-end deadlines.
+The dataset captures vessel movements on **January 1, 2024** (New Year's Day). These dates were selected due to the heightened shipping activity typically observed around the year-end, driven by operational surges and year-end deadlines.
 
 The maritime industry in West Coast of North America requires real-time access to vessel movement data for effective decision-making. Traditional tools lack **interactive visualizations** and **custom filtering**, making it difficult to analyze trends efficiently. Our dashboard will address this gap by providing an intuitive and interactive platform to explore AIS (Automatic Identification System) data.
 
