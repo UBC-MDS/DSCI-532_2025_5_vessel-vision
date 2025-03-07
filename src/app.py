@@ -152,22 +152,22 @@ app.layout = dbc.Container([
             value=df['BaseDateTime'].min(),
             inline=True
         ), width=3)
-    ], className="my-3"),
+    ], className="justify-content-center my-3"),
 
     # Port Data Section with Trend Graph
     dbc.Row([
         dbc.Col([ 
             create_port_table(port_result_df),
             create_trend_graph(df),  
-        ], width=4, style={"height": "70vh", "display": "flex", "flexDirection": "column", "justifyContent": "flex-start"}),
+        ], width=4, style={"height": "60vh", "display": "flex", "flexDirection": "column", "justifyContent": "flex-start"}),
 
         # Map Section
         dbc.Col(
             dcc.Graph(id="map-output", style={'height': '100%', 'margin': '0', 'padding': '0'}),
-            width=8,
-            style={"height": "70vh", "padding": "0", "backgroundColor": "#f0f0f0"}
+            width=7,
+            style={"height": "60vh", "padding": "0", "backgroundColor": "#f0f0f0"}
         ),
-    ], align="stretch", className="my-3"),
+    ], align="start", className="justify-content-center my-3"),
 
     # Footer
     create_footer()  # ✅ Ensure the footer is correctly included
