@@ -29,17 +29,17 @@ df['Hour'] = df['BaseDateTime'].dt.hour
 df['BaseDateTime'] = pd.to_datetime(df['BaseDateTime']).dt.strftime('%Y-%m-%d')
 
 # Compute Port table
-df_port = calculate_arrivals_departures(df)
+port_result_df, car_df, pas_df = calculate_arrivals_departures(df)
 
-def create_port_table(df_port):
+def create_port_table(port_result_df):
     """Create a Bootstrap Card containing the Port Table."""
     return dbc.Card(
         dbc.CardBody([ 
             html.H5("Number of Arrivals & Departures per Port", style={"fontFamily": "Arial, sans-serif"}),
             dash_table.DataTable(
                 id="port-table",
-                columns=[{"name": col, "id": col} for col in df_port.columns],
-                data=df_port.to_dict("records"),
+                columns=[{"name": col, "id": col} for col in port_result_df.columns],
+                data=port_result_df.to_dict("records"),
                 page_size=5,
                 style_table={"overflowX": "auto", "margin": "auto", "border": "none", "fontFamily": "Arial, sans-serif"},
                 style_header={"fontWeight": "bold", "border": "none", "fontFamily": "Arial, sans-serif"},
@@ -157,7 +157,7 @@ app.layout = dbc.Container([
     # Port Data Section with Trend Graph
     dbc.Row([
         dbc.Col([ 
-            create_port_table(df_port),
+            create_port_table(port_result_df),
             create_trend_graph(df),  
         ], width=4, style={"height": "70vh", "display": "flex", "flexDirection": "column", "justifyContent": "flex-start"}),
 
@@ -175,7 +175,7 @@ app.layout = dbc.Container([
 ], fluid=True, style={"backgroundColor": "#e9ecef", "minHeight": "100vh", "display": "flex", "flexDirection": "column", "justifyContent": "space-between"})
 
 # Register callbacks
-register_callbacks(app, df)
+register_callbacks(app, df, port_result_df, car_df, pas_df)
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 10000))

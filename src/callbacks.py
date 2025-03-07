@@ -78,7 +78,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from components import create_map
 from calculate_arrivals_departures import calculate_arrivals_departures
 
-def register_callbacks(app, df):
+def register_callbacks(app, df, port_result_df, car_df, pas_df):
     """
     This function registers the callbacks for the app.
     """
@@ -127,10 +127,20 @@ def register_callbacks(app, df):
         else:
             max_time_anchored = "N/A"  # If column doesn't exist
         
-        # Compute updated Port table
-        port_table_df = calculate_arrivals_departures(filtered_df)
 
-        return create_map(filtered_df), port_table_df.to_dict("records"), f"{total_unique_vessels:,}", f"{total_moving_vessels:,}", f"{total_anchored_vessels:,}", max_time_anchored
+        # Fix: For Port table, compute from port_result_df rather than calculate again
+        if vessel_type == "Cargo":
+            selected_df = car_df
+        elif vessel_type == "Passenger":
+            selected_df = pas_df
+        else:
+            selected_df = port_result_df
+
+        if nearest_port:
+            selected_df = selected_df[selected_df["PORT NAME"] == nearest_port]
+
+        return create_map(filtered_df), selected_df.to_dict("records"), f"{total_unique_vessels:,}", f"{total_moving_vessels:,}", f"{total_anchored_vessels:,}", max_time_anchored
+
 
     # 🔥 NEW CALLBACK: Dynamically Adjust Trend Graph Height
     @app.callback(
