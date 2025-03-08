@@ -58,7 +58,7 @@ python -m pip install -r requirements.txt
 ```
 Then, start the Dash web application:
 ```bash
-python app.py
+python src/app.py
 ```
 
 This will launch the interactive web dashboard **Vessel Vision**.
