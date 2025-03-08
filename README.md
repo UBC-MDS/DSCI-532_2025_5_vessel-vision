@@ -23,7 +23,7 @@ Zoe Ren
 
 ## Demo GIF
 
-![demo](img/demo.gif)
+![load new gif](img/demo.gif)
 
 ---
 ## Dashboard Usage
