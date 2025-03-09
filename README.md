@@ -1,5 +1,10 @@
 # Vessel Vision 🚢🌊📊🗺️
 
+## About
+**Vessel Vision** is an interactive dashboard that visualizes and analyzes Automatic Identification System (AIS) data for maritime traffic. This project focuses on tracking vessel movements along the West Coast of North America, providing real-time insights into maritime activity. By integrating dynamic filtering options and interactive visualizations, the dashboard addresses gaps in traditional maritime traffic analysis tools, enabling better decision-making in the maritime industry.
+
+**Keywords**: AIS data, maritime traffic, vessel tracking, real-time analysis, West Coast, interactive visualization, dashboard, shipping activity, port congestion.
+
 ## Introduction
 This project focuses on extracting and processing Automatic Identification System (AIS) data for maritime traffic analysis. The data is sourced from the National Oceanic and Atmospheric Administration (NOAA), a scientific agency under the U.S. Department of Commerce, which provides valuable insights into oceanic, atmospheric, and maritime conditions.
 
