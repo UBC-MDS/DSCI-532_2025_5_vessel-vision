@@ -1,5 +1,7 @@
 import plotly.express as px
-from dash import html, dcc
+import dash_bootstrap_components as dbc
+from dash import dcc, html, dash_table
+import plotly.graph_objects as go
 
 def create_filters(vessel_types, nearest_ports, vessel_names, dates):
     """
