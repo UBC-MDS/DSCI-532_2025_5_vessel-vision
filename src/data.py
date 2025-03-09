@@ -47,18 +47,38 @@ def load_data(date_filter=None):
     # Sort the dataframe by MMSI and BaseDateTime
     combined_df = combined_df.sort_values(by=['MMSI', 'BaseDateTime']).reset_index(drop=True)
 
+    # ----------- Find top 2 vessels per Nearest Port for Cargo and Passenger ----------------
+    combined_df['visit_date'] = combined_df['BaseDateTime'].dt.date  # Extract date only
+
+    # Count visits per day per MMSI, Nearest Port, and Vessel Type
+    visit_counts = combined_df.groupby(['Nearest Port', 'visit_date', 'MMSI', 'Vessel Type Name']).size().reset_index(name='visit_count')
+
+    # Find top 1 Cargo vessel and 1 Passenger vessel per Nearest Port
+    top_vessels = visit_counts.groupby(['Nearest Port', 'Vessel Type Name']).apply(
+        lambda x: x.sort_values('visit_count', ascending=False).head(1)
+    ).reset_index(drop=True)
+
+    # Get the list of top vessels (MMSI) for Cargo and Passenger types
+    top_cargo_vessel_mmsis = top_vessels[top_vessels['Vessel Type Name'] == 'Cargo']['MMSI'].tolist()
+    top_passenger_vessel_mmsis = top_vessels[top_vessels['Vessel Type Name'] == 'Passenger']['MMSI'].tolist()
+
+    # ----------- Filter the data for the top vessels ----------------
+    filtered_df = combined_df[
+        combined_df['MMSI'].isin(top_cargo_vessel_mmsis + top_passenger_vessel_mmsis)
+    ]
+
     # ----------- Calculate the 'Duration Anchored' for each vessel ----------------
     # Initialize 'Duration Anchored' as pd.NaT for time deltas
-    combined_df['Duration Anchored'] = pd.NaT  # Use pd.NaT for missing time values
+    filtered_df['Duration Anchored'] = pd.NaT  # Use pd.NaT for missing time values
 
     # Group by MMSI and calculate the difference for rows where Status is 1 (anchored)
-    combined_df['Duration Anchored'] = combined_df.groupby('MMSI')['BaseDateTime'].diff().shift(-1)
+    filtered_df['Duration Anchored'] = filtered_df.groupby('MMSI')['BaseDateTime'].diff().shift(-1)
 
     # Only keep the duration for rows where Status is 1 (anchored)
-    combined_df['Duration Anchored'] = np.where(combined_df['Status'] == 1, combined_df['Duration Anchored'], pd.NaT)
+    filtered_df['Duration Anchored'] = np.where(filtered_df['Status'] == 1, filtered_df['Duration Anchored'], pd.NaT)
 
-    # Return combined dataframe
-    return combined_df
+    # Return filtered dataframe
+    return filtered_df
 
 # Test the function
 load_data()

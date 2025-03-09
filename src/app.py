@@ -23,7 +23,7 @@ app = Dash(__name__, server=server, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 # Load AIS dataset
 df = load_data(date_filter="2024-01-01")
-
+####df = df.head(1000)
 # Ensure consistent date format
 df['Hour'] = df['BaseDateTime'].dt.hour
 df['BaseDateTime'] = pd.to_datetime(df['BaseDateTime']).dt.strftime('%Y-%m-%d')
