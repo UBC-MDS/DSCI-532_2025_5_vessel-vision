@@ -29,6 +29,27 @@ df['BaseDateTime'] = pd.to_datetime(df['BaseDateTime']).dt.strftime('%Y-%m-%d')
 
 # Compute Port table
 port_result_df, car_df, pas_df = calculate_arrivals_departures(df)
+port_table = create_port_table(port_result_df)
+trend_graph = create_trend_graph(df)
+
+# Port Table & Trend Graph
+port_section = dbc.Col([
+    port_table,
+    trend_graph
+], width=4, style={
+    "height": "55vh", 
+    "display": "flex", 
+    "flexDirection": "column", 
+    "justifyContent": "flex-start", 
+    "overflowY": "auto"
+})
+
+# Map Section
+map_section = dbc.Col(
+    dcc.Graph(id="map-output", style={'height': '100%', 'margin': '0', 'padding': '0'}),
+    width=7,
+    style={"height": "55vh", "padding": "0", "backgroundColor": "#f0f0f0"}
+)
 
 # App layout
 app.layout = dbc.Container([
@@ -66,17 +87,8 @@ app.layout = dbc.Container([
 
     # Port Data Section with Trend Graph
     dbc.Row([
-        dbc.Col([ 
-            create_port_table(port_result_df),
-            create_trend_graph(df),  
-        ], width=4, style={"height": "55vh", "display": "flex", "flexDirection": "column", "justifyContent": "flex-start","overflowY": "auto" }),
-
-        # Map Section
-        dbc.Col(
-            dcc.Graph(id="map-output", style={'height': '100%', 'margin': '0', 'padding': '0'}),
-            width=7,
-            style={"height": "55vh", "padding": "0", "backgroundColor": "#f0f0f0"}
-        ),
+        port_section,
+        map_section
     ], align="stretch", className="justify-content-center my-2"),
 
     # Footer
@@ -90,4 +102,3 @@ register_callbacks(app, df, port_result_df, car_df, pas_df)
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 10000))
     app.run_server(host="0.0.0.0", port=port)
-
