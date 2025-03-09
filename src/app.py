@@ -71,8 +71,8 @@ app.layout = dbc.Container([
 
         # Map Section
         dbc.Col(
-            id = "map-output",
-            figure=create_map(df),
+            dcc.Graph(id="map-output", figure=create_map(df)),
+            width=7,
             style={"height": "55vh", 'margin': '0', "padding": "0", "backgroundColor": "#f0f0f0"}
         ),
     ], align="stretch", className="justify-content-center my-2"),
