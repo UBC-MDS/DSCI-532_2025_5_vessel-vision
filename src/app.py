@@ -15,10 +15,6 @@ from callbacks import register_callbacks
 from components import create_map, create_trend_graph, create_summary_card, create_footer, create_port_table
 from calculate_arrivals_departures import calculate_arrivals_departures
 
-# only load 500 data
-def load_data():
-    return pd.read_csv("data.csv").sample(300) 
-
 app = Dash(__name__)
 server = app.server
 
@@ -28,6 +24,9 @@ df = load_data(date_filter="2024-01-01")
 # Ensure consistent date format
 df['Hour'] = df['BaseDateTime'].dt.hour
 df['BaseDateTime'] = pd.to_datetime(df['BaseDateTime']).dt.strftime('%Y-%m-%d')
+
+# 9:00-17:00
+df = df[(df['BaseDateTime'].dt.hour >= 9) & (df['BaseDateTime'].dt.hour <= 17)]
 
 # Compute Port table
 port_result_df, car_df, pas_df = calculate_arrivals_departures(df)
