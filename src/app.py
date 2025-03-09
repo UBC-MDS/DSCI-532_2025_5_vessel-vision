@@ -6,6 +6,7 @@ import dash_bootstrap_components as dbc
 from dash import Dash, dcc, html, dash_table
 import sys
 import plotly.graph_objects as go
+from flask import Flask 
 
 # Add the current directory to sys.path
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
@@ -15,8 +16,9 @@ from callbacks import register_callbacks
 from components import create_map, create_trend_graph, create_summary_card, create_footer, create_port_table
 from calculate_arrivals_departures import calculate_arrivals_departures
 
-app = Dash(__name__)
-server = app.server
+server = Flask(__name__)
+
+app = Dash(__name__, server=server, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 # Load AIS dataset
 df = load_data(date_filter="2024-01-01")
