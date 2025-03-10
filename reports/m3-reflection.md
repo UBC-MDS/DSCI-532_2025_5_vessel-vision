@@ -7,6 +7,8 @@ We have now basically implemented all the features proposed in the M1 proposal.
 Based on what we've done in M1, we updated the dashboard according to the suggestion from instructor and TA.
 
 - Reduced file size to improve app loading speed.
+- Changed file type to parquet from csv and read from those as well.
+- Rewrote data.py computations in order to calculate the values for faster display.
 - Minimized white space around the map and across the application.
 - Modified the map legend for better readability.
 - Ensured all application elements fit on a single page without requiring scrolling.
