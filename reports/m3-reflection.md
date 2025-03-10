@@ -4,7 +4,7 @@
 
 We have now basically implemented all the features proposed in the M1 proposal.
 
-Bsed on what we've done in M1, we updated the dashboard according to the suggestion from instructor and TA.
+Based on what we've done in M1, we updated the dashboard according to the suggestion from instructor and TA.
 
 - Reduced file size to improve app loading speed.
 - Minimized white space around the map and across the application.
