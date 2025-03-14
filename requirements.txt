@@ -21,4 +21,4 @@ vega-datasets==0.9.*
 openmeteo_requests==1.2.*
 requests_cache==1.2.*
 retry-requests==2.0.*
-flask-caching==2.3.1.*
+flask_caching==2.3.1.*
