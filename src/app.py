@@ -217,7 +217,7 @@ app.layout = dbc.Container([
 
         dbc.Col(dcc.RadioItems(
             id="date-filter",
-            options=[{"label": date, "value": date} for date in df['BaseDateTime'].dropna().unique()],
+            options=[{"label": f" The data is from the date(s): {date}", "value": date} for date in df['BaseDateTime'].dropna().unique()],
             value=df['BaseDateTime'].min(),
             inline=True
         ), width=3)
