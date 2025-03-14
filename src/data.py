@@ -28,26 +28,37 @@ def load_data(date_filter=None):
     
     # ----------- Vectorized Duration Anchored Calculation ----------------
     
-    # Sort by MMSI and time for consistent results
+    # Sort by MMSI and time
     combined_df = combined_df.sort_values(by=['MMSI', 'BaseDateTime']).reset_index(drop=True)
     
     # Initialize Duration Anchored column
     combined_df['Duration Anchored'] = pd.NA
     
-    # Create a mask for anchored vessels (SOG == 0)
-    anchored_mask = combined_df['SOG'] == 0
+    # Extract only anchored vessels (SOG == 0)
+    anchored_df = combined_df[combined_df['SOG'] == 0].copy()
     
-    # Create MMSI groups for vectorized operations
-    combined_df['mmsi_group'] = (combined_df['MMSI'] != combined_df['MMSI'].shift()).cumsum()
-    
-    # Calculate the time difference between consecutive timestamps for the same vessel
-    combined_df['time_diff'] = combined_df.groupby('MMSI')['BaseDateTime'].diff().shift(-1)
-    
-    # Only assign duration where vessel is anchored (SOG == 0)
-    combined_df.loc[anchored_mask, 'Duration Anchored'] = combined_df.loc[anchored_mask, 'time_diff']
-    
-    # Drop the temporary columns we created
-    combined_df = combined_df.drop(columns=['mmsi_group', 'time_diff'])
+    if not anchored_df.empty:
+        # Sort anchored data by MMSI and time
+        anchored_df = anchored_df.sort_values(by=['MMSI', 'BaseDateTime'])
+        
+        # Calculate time to next anchored observation for same vessel
+        # This replicates the original loop behavior but in a vectorized way
+        anchored_df['next_time'] = anchored_df.groupby('MMSI')['BaseDateTime'].shift(-1)
+        anchored_df['Duration Anchored'] = anchored_df['next_time'] - anchored_df['BaseDateTime']
+        
+        # Create a mapping to update the original dataframe
+        # We need to create a unique identifier combining MMSI and timestamp
+        anchored_df['mmsi_time_key'] = anchored_df['MMSI'].astype(str) + '_' + anchored_df['BaseDateTime'].astype(str)
+        combined_df['mmsi_time_key'] = combined_df['MMSI'].astype(str) + '_' + combined_df['BaseDateTime'].astype(str)
+        
+        # Create a dictionary mapping of keys to Duration Anchored values
+        duration_dict = anchored_df.set_index('mmsi_time_key')['Duration Anchored'].to_dict()
+        
+        # Update only the relevant rows in the original dataframe
+        combined_df['Duration Anchored'] = combined_df['mmsi_time_key'].map(duration_dict)
+        
+        # Remove the temporary key column
+        combined_df = combined_df.drop(columns=['mmsi_time_key'])
     
     # Extract hour for trend analysis
     combined_df['Hour'] = combined_df['BaseDateTime'].dt.hour
