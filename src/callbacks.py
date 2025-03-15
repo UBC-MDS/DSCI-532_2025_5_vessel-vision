@@ -78,6 +78,13 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from components import create_map
 from calculate_arrivals_departures import calculate_arrivals_departures
 
+
+import warnings
+warnings.filterwarnings('ignore', category=pd.errors.SettingWithCopyWarning)
+
+
+
+
 def register_callbacks(app, df, port_result_df, car_df, pas_df):
     """
     This function registers the callbacks for the app.

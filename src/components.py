@@ -1,7 +1,13 @@
 import plotly.express as px
+import pandas as pd
 from dash import html, dcc, dash_table
 import plotly.graph_objects as go
 import dash_bootstrap_components as dbc
+
+
+import warnings
+warnings.filterwarnings('ignore', category=pd.errors.SettingWithCopyWarning)
+
 
 def create_filters(vessel_types, nearest_ports, vessel_names, dates):
     """

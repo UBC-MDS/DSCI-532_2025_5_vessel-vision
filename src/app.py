@@ -128,6 +128,10 @@ import sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 
+
+import warnings
+warnings.filterwarnings('ignore', category=pd.errors.SettingWithCopyWarning)
+
 # To make render faster
 
 if "RENDER" in os.environ:
