@@ -3,21 +3,20 @@ import pandas as pd
 import numpy as np
 
 def load_data(date_filter=None):
-    # Define the root directory and the processed-folder path
+    # Define the root directory and the split-file folder path
     root_dir = os.path.dirname(os.path.abspath(__file__))  # This gets the absolute path of the current file (app.py is in src)
-    processed_folder = os.path.join(root_dir, '..', 'data', 'processed')  # Navigate to data/processed folder
+    split_file_dir = os.path.join(root_dir, '..', 'data', 'split-data')  # Navigate to data/split-file folder
 
-    # List all Parquet files in the processed folder
-    parquet_files = [f for f in os.listdir(processed_folder) if f.endswith('.parquet')]
+    # List all CSV files in the split-file folder
+    csv_files = [f for f in os.listdir(split_file_dir) if f.endswith('.csv')]
 
-    # Read all Parquet files and combine them into one DataFrame
+    # Read all CSV files and combine them into one DataFrame
     combined_df = pd.concat(
-        [pd.read_parquet(os.path.join(processed_folder, parquet_file)) for parquet_file in parquet_files],
+        [pd.read_csv(os.path.join(split_file_dir, csv_file)) for csv_file in csv_files],
         ignore_index=True
     )
 
     # ----------- preprocessing for maximum time anchored computation ----------------
-    # Ensure the 'BaseDateTime' column is in datetime format after combining all files
     # Ensure the 'BaseDateTime' column is in datetime format after combining all files
     combined_df['BaseDateTime'] = pd.to_datetime(combined_df['BaseDateTime'], errors='coerce')  # Coerce invalid parsing to NaT
 
