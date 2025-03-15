@@ -3,16 +3,16 @@ import pandas as pd
 import numpy as np
 
 def load_data(date_filter=None):
-    # Define the root directory and the split-file folder path
+    # Define the root directory and the processed-folder path
     root_dir = os.path.dirname(os.path.abspath(__file__))  # This gets the absolute path of the current file (app.py is in src)
-    split_file_dir = os.path.join(root_dir, '..', 'data', 'split-data')  # Navigate to data/split-file folder
+    processed_folder = os.path.join(root_dir, '..', 'data', 'processed')  # Navigate to data/processed folder
 
-    # List all CSV files in the split-file folder
-    csv_files = [f for f in os.listdir(split_file_dir) if f.endswith('.csv')]
+    # List all Parquet files in the processed folder
+    parquet_files = [f for f in os.listdir(processed_folder) if f.endswith('.parquet')]
 
-    # Read all CSV files and combine them into one DataFrame
+    # Read all Parquet files and combine them into one DataFrame
     combined_df = pd.concat(
-        [pd.read_csv(os.path.join(split_file_dir, csv_file)) for csv_file in csv_files],
+        [pd.read_parquet(os.path.join(processed_folder, parquet_file)) for parquet_file in parquet_files],
         ignore_index=True
     )
 
