@@ -197,7 +197,7 @@ app.layout = dbc.Container([
     dbc.Row([
         dbc.Col(create_summary_card("Total Unique Vessels", "total-unique-vessels", "#007BFF"), width=3),
         dbc.Col(create_summary_card("Total Moving Vessels", "total-moving-vessels", "#28A745"), width=3),
-        dbc.Col(create_summary_card("Total Anchored Vessels", "total-anchored-vessels", "#DC3545"), width=3),
+        dbc.Col(create_summary_card("Total Anchored Vessels", "total-anchored-vessels", "#6F42C1"), width=3),
         dbc.Col(create_summary_card("Max Time Anchored (hours)", "max-time-anchored", "#FFC107"), width=3),
     ], className="justify-content-center my-2"),
 
