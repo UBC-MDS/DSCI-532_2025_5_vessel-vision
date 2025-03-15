@@ -18,6 +18,7 @@ def load_data(date_filter=None):
 
     # ----------- preprocessing for maximum time anchored computation ----------------
     # Ensure the 'BaseDateTime' column is in datetime format after combining all files
+    # Ensure the 'BaseDateTime' column is in datetime format after combining all files
     combined_df['BaseDateTime'] = pd.to_datetime(combined_df['BaseDateTime'], errors='coerce')  # Coerce invalid parsing to NaT
 
     # Filter data by specific date if the date_filter is provided
@@ -43,19 +44,8 @@ def load_data(date_filter=None):
         # Store this back into the original dataframe
         combined_df.loc[anchored_data.index, 'Duration Anchored'] = anchored_data['Duration Anchored']
 
-    # Convert 'Duration Anchored' from Timedelta to total seconds or hours as needed
-    # Convert Timedelta to total seconds (float)
-    combined_df['Duration Anchored (seconds)'] = combined_df['Duration Anchored'].apply(lambda x: x.total_seconds() if pd.notna(x) else np.nan)
-
-    # Alternatively, convert Timedelta to total hours (float)
-    combined_df['Duration Anchored (hours)'] = combined_df['Duration Anchored (seconds)'] / 3600
-
     # Return combined dataframe
     return combined_df
 
 
-# Example usage:
-combined_df = load_data()
-
-# You can check the first few rows of the dataframe
-print(combined_df.head())
+load_data()
