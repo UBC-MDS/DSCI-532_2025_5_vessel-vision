@@ -163,10 +163,10 @@ def create_footer():
             dbc.Row(
                 dbc.Col([
                     html.Hr(), 
-                    html.P("Vessel Vision, extract and process AIS data for maritime traffic analysis.", 
-                           className="text-center", style={"fontWeight": "bold", "margin-bottom": "2px"}),
-                    html.P("Developed by [DSCI-532-group5]: Azin Piran, Stephanie Wu, Yasmin Hassan, Zoe Ren", 
-                           className="text-center", style={"margin-bottom": "2px"}),
+
+                    html.P("Vessel Vision, extract and process AIS data for maritime traffic analysis.", className="text-center", style={"fontWeight": "bold","margin-bottom": "2px"}),
+                    html.P("Developed by Vessel vision Team: Azin Piran, Stephanie Wu, Yasmin Hassan, Zoe Ren", className="text-center",style={"margin-bottom": "2px"}),
+
                     html.P([
                         "GitHub Repository: ",
                         html.A("Vessel Vision", href="https://github.com/UBC-MDS/DSCI-532_2025_5_vessel-vision", target="_blank")
