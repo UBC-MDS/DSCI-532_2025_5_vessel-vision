@@ -127,6 +127,7 @@ import sys
 # Add the current directory to sys.path
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
+
 # To make render faster
 
 if "RENDER" in os.environ:
@@ -225,7 +226,7 @@ app.layout = dbc.Container([
 
         dbc.Col(dcc.RadioItems(
             id="date-filter",
-            options=[{"label": date, "value": date} for date in df['BaseDateTime'].dropna().unique()],
+            options=[{"label": f"Data from: {date}", "value": date} for date in df['BaseDateTime'].dropna().unique()],
             value=df['BaseDateTime'].min(),
             inline=True
         ), width=3)
