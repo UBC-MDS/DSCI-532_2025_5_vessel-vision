@@ -127,10 +127,19 @@ import sys
 # Add the current directory to sys.path
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
-from data import load_data
-from callbacks import register_callbacks
-from components import create_map, create_port_table, create_summary_card, create_trend_graph, create_footer
-from calculate_arrivals_departures import calculate_arrivals_departures
+
+# To make render faster
+
+if "RENDER" in os.environ:
+    from data import load_data
+    from callbacks import register_callbacks
+    from components import create_map, create_port_table,create_summary_card,create_trend_graph,create_footer
+    from calculate_arrivals_departures import calculate_arrivals_departures
+else:
+    from data import load_data
+    from callbacks import register_callbacks
+    from components import create_map, create_port_table,create_summary_card,create_trend_graph,create_footer
+    from calculate_arrivals_departures import calculate_arrivals_departures
 
 server = Flask(__name__)
 
