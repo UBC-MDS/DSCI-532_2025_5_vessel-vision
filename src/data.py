@@ -26,12 +26,7 @@ def load_data(date_filter=None):
         combined_df = combined_df[combined_df['BaseDateTime'].dt.date == pd.to_datetime(date_filter).date()]
 
     # Filter to keep only the three most famous ports
-    famous_ports = [
-        "Port of Los Angeles",
-        "Port of San Francisco",
-        "Port of Vancouver"
-    ]
-    combined_df = combined_df[combined_df['Nearest Port'].isin(famous_ports)]  # Assuming 'port' is the column name
+    #combined_df = combined_df[combined_df['Nearest Port'].isin(famous_ports)]  # Assuming 'port' is the column name
 
     # Sort the dataframe by MMSI and BaseDateTime
     combined_df = combined_df.sort_values(by=['MMSI', 'BaseDateTime']).reset_index(drop=True)
