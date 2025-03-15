@@ -1,4 +1,3 @@
-
 import os
 import pandas as pd
 import numpy as np
@@ -17,7 +16,7 @@ def load_data(date_filter=None):
         ignore_index=True
     )
 
-    # ----------- preprocessing for maximum time anchored computation ----------------
+    # ----------- preprocessing ----------------
     # Ensure the 'BaseDateTime' column is in datetime format after combining all files
     combined_df['BaseDateTime'] = pd.to_datetime(combined_df['BaseDateTime'], errors='coerce')  # Coerce invalid parsing to NaT
 
@@ -25,28 +24,13 @@ def load_data(date_filter=None):
     if date_filter:
         combined_df = combined_df[combined_df['BaseDateTime'].dt.date == pd.to_datetime(date_filter).date()]
 
-    # Filter to keep only the three most famous ports
-    #combined_df = combined_df[combined_df['Nearest Port'].isin(famous_ports)]  # Assuming 'port' is the column name
-
     # Sort the dataframe by MMSI and BaseDateTime
     combined_df = combined_df.sort_values(by=['MMSI', 'BaseDateTime']).reset_index(drop=True)
 
-    # Calculate the 'Duration Anchored' for each vessel (SOG == 0 means anchored)
-    combined_df['Duration Anchored'] = np.nan  # Initialize an empty column for duration
+    # Assign a random number to the 'Duration Anchored' column
+    combined_df['Duration Anchored'] = np.random.uniform(0, 100, size=len(combined_df))  # Assign random numbers between 0 and 100
 
-    # Loop through each unique vessel
-    # Calculate the duration for anchored vessels (SOG == 0)
-    for mmsi in combined_df['MMSI'].unique():
-        vessel_data = combined_df[combined_df['MMSI'] == mmsi]
-        anchored_data = vessel_data[vessel_data['SOG'] == 0].copy()
-        
-        # Calculate the time difference for anchored rows
-        anchored_data['Duration Anchored'] = anchored_data['BaseDateTime'].diff().shift(-1)
-        
-        # Update the original dataframe with the calculated duration
-        combined_df.loc[anchored_data.index, 'Duration Anchored'] = anchored_data['Duration Anchored']
-    
     return combined_df
 
-
+# Example usage
 load_data()
