@@ -43,8 +43,19 @@ def load_data(date_filter=None):
         # Store this back into the original dataframe
         combined_df.loc[anchored_data.index, 'Duration Anchored'] = anchored_data['Duration Anchored']
 
+    # Convert 'Duration Anchored' from Timedelta to total seconds or hours as needed
+    # Convert Timedelta to total seconds (float)
+    combined_df['Duration Anchored (seconds)'] = combined_df['Duration Anchored'].apply(lambda x: x.total_seconds() if pd.notna(x) else np.nan)
+
+    # Alternatively, convert Timedelta to total hours (float)
+    combined_df['Duration Anchored (hours)'] = combined_df['Duration Anchored (seconds)'] / 3600
+
     # Return combined dataframe
     return combined_df
 
 
-load_data()
+# Example usage:
+combined_df = load_data()
+
+# You can check the first few rows of the dataframe
+print(combined_df.head())

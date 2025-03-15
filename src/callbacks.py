@@ -126,6 +126,10 @@ def register_callbacks(app, df, port_result_df, car_df, pas_df):
         total_moving_vessels = filtered_df[filtered_df["SOG"] > 0]["MMSI"].nunique()
         total_anchored_vessels = filtered_df[filtered_df["SOG"] == 0]["MMSI"].nunique()
 
+
+
+
+
         # Ensure 'Duration Anchored' is in a consistent numeric format (Timedelta or hours as float)
         if "Duration Anchored" in filtered_df.columns:
             filtered_df["Duration Anchored"] = pd.to_timedelta(filtered_df["Duration Anchored"], errors='coerce')
@@ -134,6 +138,15 @@ def register_callbacks(app, df, port_result_df, car_df, pas_df):
         else:
             max_time_anchored = "N/A"  # If column doesn't exist
         
+
+
+
+
+
+
+
+
+
 
         # Fix: For Port table, compute from port_result_df rather than calculate again
         if vessel_type == "Cargo":
@@ -147,7 +160,6 @@ def register_callbacks(app, df, port_result_df, car_df, pas_df):
             selected_df = selected_df[selected_df["PORT NAME"] == nearest_port]
 
         return create_map(filtered_df), selected_df.to_dict("records"), f"{total_unique_vessels:,}", f"{total_moving_vessels:,}", f"{total_anchored_vessels:,}", max_time_anchored
-
 
     # 🔥 NEW CALLBACK: Dynamically Adjust Trend Graph Height
     @app.callback(
@@ -204,5 +216,4 @@ def register_callbacks(app, df, port_result_df, car_df, pas_df):
         )
 
         return fig
-
 
