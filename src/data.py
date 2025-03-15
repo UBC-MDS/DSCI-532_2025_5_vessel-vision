@@ -1,18 +1,19 @@
+
 import os
 import pandas as pd
 import numpy as np
 
 def load_data(date_filter=None):
-    # Define the root directory and the split-file folder path
-    root_dir = os.path.dirname(os.path.abspath(__file__))  # This gets the absolute path of the current file (app.py is in src)
-    split_file_dir = os.path.join(root_dir, '..', 'data', 'split-data')  # Navigate to data/split-file folder
+    # Define the root directory and the processed-folder path
+    root_dir = os.path.dirname(os.path.abspath(__file__))  # Get the absolute path of the current file
+    processed_folder = os.path.join(root_dir, '..', 'data', 'processed')  # Path to processed data folder
 
-    # List all CSV files in the split-file folder
-    csv_files = [f for f in os.listdir(split_file_dir) if f.endswith('.csv')]
+    # List all Parquet files in the processed folder
+    parquet_files = [f for f in os.listdir(processed_folder) if f.endswith('.parquet')]
 
-    # Read all CSV files and combine them into one DataFrame
+    # Read all Parquet files and combine them into one DataFrame
     combined_df = pd.concat(
-        [pd.read_csv(os.path.join(split_file_dir, csv_file)) for csv_file in csv_files],
+        [pd.read_parquet(os.path.join(processed_folder, parquet_file)) for parquet_file in parquet_files],
         ignore_index=True
     )
 
@@ -31,19 +32,17 @@ def load_data(date_filter=None):
     combined_df['Duration Anchored'] = np.nan  # Initialize an empty column for duration
 
     # Loop through each unique vessel
+    # Calculate the duration for anchored vessels (SOG == 0)
     for mmsi in combined_df['MMSI'].unique():
         vessel_data = combined_df[combined_df['MMSI'] == mmsi]
-
-        # Find rows where the vessel is anchored (SOG == 0)
-        anchored_data = vessel_data[vessel_data['SOG'] == 0]
-
-        # Calculate the time difference between consecutive anchored rows
+        anchored_data = vessel_data[vessel_data['SOG'] == 0].copy()
+        
+        # Calculate the time difference for anchored rows
         anchored_data['Duration Anchored'] = anchored_data['BaseDateTime'].diff().shift(-1)
-
-        # Store this back into the original dataframe
+        
+        # Update the original dataframe with the calculated duration
         combined_df.loc[anchored_data.index, 'Duration Anchored'] = anchored_data['Duration Anchored']
-
-    # Return combined dataframe
+    
     return combined_df
 
 
