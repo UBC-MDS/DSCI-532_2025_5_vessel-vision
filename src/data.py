@@ -16,10 +16,22 @@ def load_data(date_filter=None):
         [pd.read_parquet(os.path.join(processed_folder, parquet_file)) for parquet_file in parquet_files],
         ignore_index=True
     )
-    combined_df = combined_df.head(20000)
+    #combined_df = combined_df.head(20000)
+
+    # Ensure 'BaseDateTime' is in datetime format
+    combined_df['BaseDateTime'] = pd.to_datetime(combined_df['BaseDateTime'])
+
+    # Filter for times between 13:00 and 13:30
+    combined_df = combined_df[(combined_df['BaseDateTime'].dt.time >= pd.to_datetime("13:00").time()) &
+                            (combined_df['BaseDateTime'].dt.time <= pd.to_datetime("13:30").time())]
+
+
+
     # ----------- preprocessing for maximum time anchored computation ----------------
     # Ensure the 'BaseDateTime' column is in datetime format after combining all files
     combined_df['BaseDateTime'] = pd.to_datetime(combined_df['BaseDateTime'], errors='coerce')  # Coerce invalid parsing to NaT
+
+
 
     # Filter data by specific date if the date_filter is provided
     if date_filter:
@@ -38,8 +50,8 @@ def load_data(date_filter=None):
         anchored_data = vessel_data[vessel_data['SOG'] == 0].copy()
         
         # Calculate the time difference for anchored rows
-        ##anchored_data['Duration Anchored'] = anchored_data['BaseDateTime'].diff().shift(-1)
-        anchored_data['Duration Anchored'] = 1
+        anchored_data['Duration Anchored'] = anchored_data['BaseDateTime'].diff().shift(-1)
+        #anchored_data['Duration Anchored'] = 1
         # Update the original dataframe with the calculated duration
         combined_df.loc[anchored_data.index, 'Duration Anchored'] = anchored_data['Duration Anchored']
     
