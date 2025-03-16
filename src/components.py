@@ -171,7 +171,7 @@ def create_footer():
                         "GitHub Repository: ",
                         html.A("Vessel Vision", href="https://github.com/UBC-MDS/DSCI-532_2025_5_vessel-vision", target="_blank")
                     ], className="text-center", style={"margin-bottom": "2px"}),
-                    html.P(f"Last updated: 2025-03-01", className="text-center", style={"margin-bottom": "2px"}),
+                    html.P(f"Last updated: 2025-03-16", className="text-center", style={"margin-bottom": "2px"}),
                 ])
             )
         ),
