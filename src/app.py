@@ -1,4 +1,3 @@
-
 import os
 import pandas as pd
 import dash_bootstrap_components as dbc
@@ -30,10 +29,6 @@ else:
 
 server = Flask(__name__)
 
-
-
-
-
 # Initialize caching (Using simple file-based cache)
 cache = Cache(server, config={'CACHE_TYPE': 'simple', "CACHE_DEFAULT_TIMEOUT": 300})
 
@@ -46,13 +41,6 @@ def get_cached_data():
     return load_data(date_filter="2024-01-01")
 
 df = get_cached_data()  # Load cached data
-
-
-
-
-
-
-
 
 # Ensure consistent date format
 df['Hour'] = df['BaseDateTime'].dt.hour
