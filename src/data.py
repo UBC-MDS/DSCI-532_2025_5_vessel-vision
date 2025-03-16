@@ -1,3 +1,4 @@
+
 import os
 import pandas as pd
 import numpy as np
@@ -15,8 +16,8 @@ def load_data(date_filter=None):
         [pd.read_parquet(os.path.join(processed_folder, parquet_file)) for parquet_file in parquet_files],
         ignore_index=True
     )
-
-    # ----------- preprocessing ----------------
+    ##combined_df = combined_df.head(20000)
+    # ----------- preprocessing for maximum time anchored computation ----------------
     # Ensure the 'BaseDateTime' column is in datetime format after combining all files
     combined_df['BaseDateTime'] = pd.to_datetime(combined_df['BaseDateTime'], errors='coerce')  # Coerce invalid parsing to NaT
 
@@ -27,10 +28,22 @@ def load_data(date_filter=None):
     # Sort the dataframe by MMSI and BaseDateTime
     combined_df = combined_df.sort_values(by=['MMSI', 'BaseDateTime']).reset_index(drop=True)
 
-    # Assign a random number to the 'Duration Anchored' column
-    combined_df['Duration Anchored'] = np.random.uniform(0, 100, size=len(combined_df))  # Assign random numbers between 0 and 100
+    # Calculate the 'Duration Anchored' for each vessel (SOG == 0 means anchored)
+    combined_df['Duration Anchored'] = np.nan  # Initialize an empty column for duration
 
+    # Loop through each unique vessel
+    # Calculate the duration for anchored vessels (SOG == 0)
+    for mmsi in combined_df['MMSI'].unique():
+        vessel_data = combined_df[combined_df['MMSI'] == mmsi]
+        anchored_data = vessel_data[vessel_data['SOG'] == 0].copy()
+        
+        # Calculate the time difference for anchored rows
+        anchored_data['Duration Anchored'] = anchored_data['BaseDateTime'].diff().shift(-1)
+        print(type(anchored_data['Duration Anchored']))  #<class 'pandas.core.series.Series'>
+        # Update the original dataframe with the calculated duration
+        combined_df.loc[anchored_data.index, 'Duration Anchored'] = anchored_data['Duration Anchored']
+    
     return combined_df
 
-# Example usage
+
 load_data()
