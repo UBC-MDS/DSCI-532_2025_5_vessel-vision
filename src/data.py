@@ -33,17 +33,27 @@ def load_data(date_filter=None):
 
     # Loop through each unique vessel
     # Calculate the duration for anchored vessels (SOG == 0)
+    # # for mmsi in combined_df['MMSI'].unique():
+    # #     vessel_data = combined_df[combined_df['MMSI'] == mmsi]
+    # #     anchored_data = vessel_data[vessel_data['SOG'] == 0].copy()
+        
+    # #     # Calculate the time difference for anchored rows
+    # #     anchored_data['Duration Anchored'] = anchored_data['BaseDateTime'].diff().shift(-1)
+    # #     # Update the original dataframe with the calculated duration
+    # #     combined_df.loc[anchored_data.index, 'Duration Anchored'] = anchored_data['Duration Anchored']
+    
+
     for mmsi in combined_df['MMSI'].unique():
         vessel_data = combined_df[combined_df['MMSI'] == mmsi]
         anchored_data = vessel_data[vessel_data['SOG'] == 0].copy()
-        
+
         # Calculate the time difference for anchored rows
-        anchored_data['Duration Anchored'] = anchored_data['BaseDateTime'].diff().shift(-1)
-        print(type(anchored_data['Duration Anchored']))  #<class 'pandas.core.series.Series'>
+        #anchored_data['Duration Anchored'] = anchored_data['BaseDateTime'].diff().shift(-1)
+        anchored_data['Duration Anchored'] = 1
         # Update the original dataframe with the calculated duration
         combined_df.loc[anchored_data.index, 'Duration Anchored'] = anchored_data['Duration Anchored']
-    
-    return combined_df
+
+        return combined_df
 
 
 load_data()
