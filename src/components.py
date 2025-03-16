@@ -98,7 +98,7 @@ def create_port_table(port_result_df):
                     {"name": "DEPARTURES", "id": "DEPARTURES"},
                 ],
                 data=port_result_df.to_dict("records"),
-                page_size=4,
+                page_size=3,
 
                 # 🔥 Add hover tooltips for FLAG column
                 tooltip_data=[
@@ -127,7 +127,7 @@ def create_summary_card(title, value, color):
         style={"textAlign": "center", "margin": "10px", "backgroundColor": color, "color": "white"}
     )
 
-# Function to create trend graph with dynamic height
+# Function to create trend graph
 def create_trend_graph(df):
     df_trend = df.groupby('Hour').size().reset_index(name='Unique Vessels')
 
@@ -140,21 +140,23 @@ def create_trend_graph(df):
         line=dict(color='blue')
     ))
 
-    # Dynamically adjust height
-    min_height = 150  
-    max_height = 300  
-    graph_height = min(max(len(df_trend) * 10, min_height), max_height)
-
     fig.update_layout(
-        title='Trend of Unique Vessels Over Time',
+        title='',
         xaxis_title='Hour of the Day',
         yaxis_title='Number of Vessels',
         template='plotly_white',
-        margin=dict(l=20, r=20, t=30, b=20),
-        height=graph_height
+        margin=dict(l=50, r=20, t=30, b=20),
+        font=dict(family="Arial, sans-serif"),  
+        plot_bgcolor='white', 
+        autosize=True
     )
 
-    return dcc.Graph(id="trend-graph", figure=fig, style={"height": "100%", "width": "100%"})
+    return dcc.Graph(
+        id="trend-graph",
+        figure=fig,
+        config={"responsive": True},
+        style={"height": "100%", "width": "100%", "border": "none"}
+    )
 
 # Function to create the footer
 def create_footer():
@@ -180,7 +182,7 @@ def create_footer():
             "bottom": "0",
             "width": "100%",
             "padding": "0px",
-            "backgroundColor": "#e9ecef",
+            "backgroundColor": "#fafafa",
             "textAlign": "center"
         }
     )

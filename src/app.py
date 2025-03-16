@@ -133,12 +133,12 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 if "RENDER" in os.environ:
     from data import load_data
     from callbacks import register_callbacks
-    from components import create_map, create_port_table,create_summary_card,create_trend_graph,create_footer
+    from components import create_map, create_port_table, create_summary_card, create_trend_graph, create_footer
     from calculate_arrivals_departures import calculate_arrivals_departures
 else:
     from data import load_data
     from callbacks import register_callbacks
-    from components import create_map, create_port_table,create_summary_card,create_trend_graph,create_footer
+    from components import create_map, create_port_table, create_summary_card, create_trend_graph, create_footer
     from calculate_arrivals_departures import calculate_arrivals_departures
 
 server = Flask(__name__)
@@ -183,24 +183,32 @@ def get_cached_map():
 map_section = dbc.Col(
     dcc.Graph(id="map-output", figure=get_cached_map(), style={'height': '100%', 'margin': '0', 'padding': '0'}),
     width=7,
-    style={"height": "55vh", "padding": "0", "backgroundColor": "#f0f0f0"}
+    style={"height": "55vh", "padding": "0", "backgroundColor": "white"}
 )
 
-# Port Table & Trend Graph Section (Fixed height to remove scrolling)
+# Port Table & Trend Graph Section (Fixed height)
 port_section = dbc.Col([
-    port_table,
-    trend_graph
+    html.Div(
+        port_table,
+        style={"height": "22vh", "marginBottom": "2vh"}
+    ),
+    html.Div(
+        trend_graph,
+        style={"height": "31vh"}
+    )
 ], width=4, style={
-    "height": "55vh", 
+    "height": "55vh",  
     "display": "flex", 
     "flexDirection": "column", 
     "justifyContent": "flex-start", 
-    "overflowY": "auto"
 })
 
 # App layout
 app.layout = dbc.Container([
-    html.H1("Vessel Vision - 🚢 AIS Unique Vessel Tracking", className="text-center my-2"),
+    html.Div([
+        html.H1("Vessel Vision", className="text-center mb-0"),
+        html.H5("- 🚢 AIS Unique Vessel Tracking - ", className="text-center text-muted")
+    ], className="my-2"),
 
     # Summary Metrics Row
     dbc.Row([
@@ -241,7 +249,7 @@ app.layout = dbc.Container([
     # Footer
     create_footer() 
 
-], fluid=True, style={"backgroundColor": "#e9ecef", "minHeight": "100vh", "display": "flex", "flexDirection": "column", "justifyContent": "space-between"})
+], fluid=True, style={"backgroundColor": "white", "minHeight": "100vh", "display": "flex", "flexDirection": "column", "justifyContent": "space-between"})
 
 # Register callbacks
 register_callbacks(app, df, port_result_df, car_df, pas_df)
