@@ -22,8 +22,8 @@ def load_data(date_filter=None):
     combined_df['BaseDateTime'] = pd.to_datetime(combined_df['BaseDateTime'])
 
     # Filter for times between 13:00 and 13:30
-    combined_df = combined_df[(combined_df['BaseDateTime'].dt.time >= pd.to_datetime("13:00").time()) &
-                            (combined_df['BaseDateTime'].dt.time <= pd.to_datetime("18:00").time())]
+    combined_df = combined_df[(combined_df['BaseDateTime'].dt.time >= pd.to_datetime("8:00").time()) &
+                            (combined_df['BaseDateTime'].dt.time <= pd.to_datetime("16:00").time())]
 
 
 
