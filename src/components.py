@@ -98,7 +98,9 @@ def create_port_table(port_result_df):
                 ],
                 data=port_result_df.to_dict("records"),
                 page_size=3,
+
                 # Add hover tooltips for FLAG column
+
                 tooltip_data=[
                     {
                         "FLAG": {"value": COUNTRY_NAMES.get(row["FLAG"], "Unknown Country"), "type": "markdown"}
@@ -191,9 +193,11 @@ def create_footer():
 
                     html.P([
                         "GitHub Repository: ",
+
                         html.A("Vessel Vision", href="https://github.com/UBC-MDS/DSCI-532_2025_5_vessel-vision", target="_blank"),
                         ",    Last updated: 2025-03-16"
                     ], className="text-center", style={"margin-bottom": "2px"})
+
                 ])
             )
         ),

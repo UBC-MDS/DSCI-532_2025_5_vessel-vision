@@ -190,6 +190,7 @@ map_section = dbc.Col(
 port_section = dbc.Col([
     html.Div(
         port_table,
+
         style={"height": "22vh",}
     ),
     html.Div(
