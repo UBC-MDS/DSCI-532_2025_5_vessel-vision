@@ -86,13 +86,12 @@ COUNTRY_NAMES = {
 def create_port_table(port_result_df):
     """Create a Bootstrap Card containing the Port Table with hover tooltips."""
     return dbc.Card(
-        dbc.CardBody([ 
+        dbc.CardBody([
             html.H5("Number of Arrivals & Departures per Port", style={"fontFamily": "Arial, sans-serif"}),
-
             dash_table.DataTable(
                 id="port-table",
                 columns=[
-                    {"name": "FLAG", "id": "FLAG", "presentation": "markdown"},  
+                    {"name": "FLAG", "id": "FLAG", "presentation": "markdown"},
                     {"name": "PORT NAME", "id": "PORT NAME"},
                     {"name": "ARRIVALS", "id": "ARRIVALS"},
                     {"name": "DEPARTURES", "id": "DEPARTURES"},
@@ -100,7 +99,8 @@ def create_port_table(port_result_df):
                 data=port_result_df.to_dict("records"),
                 page_size=3,
 
-                # 🔥 Add hover tooltips for FLAG column
+                # Add hover tooltips for FLAG column
+
                 tooltip_data=[
                     {
                         "FLAG": {"value": COUNTRY_NAMES.get(row["FLAG"], "Unknown Country"), "type": "markdown"}
@@ -108,11 +108,33 @@ def create_port_table(port_result_df):
                 ],
                 tooltip_delay=0,
                 tooltip_duration=None,
-
                 style_table={"overflowX": "auto", "margin": "auto", "border": "none", "fontFamily": "Arial, sans-serif"},
                 style_header={"fontWeight": "bold", "border": "none", "fontFamily": "Arial, sans-serif"},
-                style_cell={"textAlign": "center", "border": "none", "fontFamily": "Arial, sans-serif"},
-                style_data={"border": "none"}
+                style_cell={
+                    "textAlign": "center", 
+                    "border": "none", 
+                    "fontFamily": "Arial, sans-serif",
+                    "padding": "1px",  
+                    "margin": "0px",   
+                    "lineHeight": "1" 
+                },
+                style_data={
+                    "border": "none",
+                    "height": "10px",  
+                    "lineHeight": "1"
+                },
+                style_data_conditional=[
+                    {
+                        "if": {"row_index": "all"},
+                        "padding": "1px",
+                        "height": "10px",
+                        "lineHeight": "1"
+                    }
+                ],
+                css=[{
+                    'selector': '.dash-spreadsheet tr',
+                    'rule': 'line-height: 1 !important; height: 10px !important;'
+                }]
             )
         ])
     )
@@ -171,9 +193,11 @@ def create_footer():
 
                     html.P([
                         "GitHub Repository: ",
-                        html.A("Vessel Vision", href="https://github.com/UBC-MDS/DSCI-532_2025_5_vessel-vision", target="_blank")
-                    ], className="text-center", style={"margin-bottom": "2px"}),
-                    html.P(f"Last updated: 2025-03-16", className="text-center", style={"margin-bottom": "2px"}),
+
+                        html.A("Vessel Vision", href="https://github.com/UBC-MDS/DSCI-532_2025_5_vessel-vision", target="_blank"),
+                        ",    Last updated: 2025-03-16"
+                    ], className="text-center", style={"margin-bottom": "2px"})
+
                 ])
             )
         ),

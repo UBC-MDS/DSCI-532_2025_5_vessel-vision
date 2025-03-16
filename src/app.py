@@ -190,11 +190,12 @@ map_section = dbc.Col(
 port_section = dbc.Col([
     html.Div(
         port_table,
-        style={"height": "22vh", "marginBottom": "2vh"}
+
+        style={"height": "22vh",}
     ),
     html.Div(
         trend_graph,
-        style={"height": "31vh"}
+        style={"height": "33vh"}
     )
 ], width=4, style={
     "height": "55vh",  
