@@ -8,14 +8,14 @@ def load_data(date_filter=None):
     """
     # Define the root directory and the split-file folder path
     root_dir = os.path.dirname(os.path.abspath(__file__))
-    split_file_dir = os.path.join(root_dir, '..', 'data', 'split-data')
+    split_file_dir = os.path.join(root_dir, '..', 'data', 'processed')
     
     # List all CSV files in the split-file folder
-    csv_files = [f for f in os.listdir(split_file_dir) if f.endswith('.csv')]
+    csv_files = [f for f in os.listdir(split_file_dir) if f.endswith('.parquet')]
     
     # Read all CSV files and combine them into one DataFrame
     combined_df = pd.concat(
-        [pd.read_csv(os.path.join(split_file_dir, csv_file)) for csv_file in csv_files],
+        [pd.read_parquet(os.path.join(split_file_dir, csv_file)) for csv_file in csv_files],
         ignore_index=True
     )
     
