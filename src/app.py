@@ -1,4 +1,3 @@
-
 import os
 import pandas as pd
 import dash_bootstrap_components as dbc
@@ -38,6 +37,10 @@ app.title = "Vessel Vision Dashboard"
 # Caching dataset load (Pre-load once and cache for faster access)
 @cache.cached(timeout=600, key_prefix='cached_df')
 def get_cached_data():
+    """
+    This function loads the dataset with a date filter and caches it for 600 seconds.
+    It allows faster access to the data without reloading from the source each time.
+    """
     return load_data(date_filter="2024-01-01")
 
 df = get_cached_data()  # Load cached data
@@ -49,6 +52,10 @@ df['BaseDateTime'] = pd.to_datetime(df['BaseDateTime']).dt.strftime('%Y-%m-%d')
 # Cache Port calculations
 @cache.cached(timeout=600, key_prefix='cached_port_table')
 def get_cached_port_table():
+    """
+    This function computes the port arrival and departure data from the provided dataframe.
+    The result is cached for faster access on subsequent loads.
+    """
     return calculate_arrivals_departures(df)
 
 port_result_df, car_df, pas_df = get_cached_port_table()
@@ -57,6 +64,10 @@ port_table = create_port_table(port_result_df)
 #  Cache trend graph
 @cache.cached(timeout=600, key_prefix='cached_trend_graph')
 def get_cached_trend_graph():
+    """
+    This function generates a trend graph from the dataframe and caches it for 600 seconds.
+    It is used to quickly render the trend visualizations.
+    """
     return create_trend_graph(df)
 
 trend_graph = get_cached_trend_graph()
@@ -64,6 +75,10 @@ trend_graph = get_cached_trend_graph()
 # Cache map to prevent re-rendering
 @cache.cached(timeout=600, key_prefix='cached_map')
 def get_cached_map():
+    """
+    This function creates and caches the map visualization for faster rendering.
+    The map is based on the data provided in the dataframe.
+    """
     return create_map(df)
 
 map_section = dbc.Col(
@@ -73,10 +88,9 @@ map_section = dbc.Col(
 )
 
 # Port Table & Trend Graph Section (Fixed height)
-port_section = dbc.Col([
+port_section = dbc.Col([ 
     html.Div(
         port_table,
-
         style={"height": "22vh",}
     ),
     html.Div(
