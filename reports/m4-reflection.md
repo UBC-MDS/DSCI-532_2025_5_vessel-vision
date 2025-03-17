@@ -1,14 +1,15 @@
 # Milestone 4 - Finalizing your dashboard
 
 
-## 2. Expectations for working collaboratively on GitHub
+## 1. Expectations for working collaboratively on GitHub
  For this part we created so many PR and collaborate all of our challenges there. We also created issues for each task and assign them to the group members. We also created a project board to track the progress of our tasks.
 
-## 3. Address feedback from me and your peers
+## 2. Address feedback from me and your peers
 
 Feedbacks addressed from Professros:
 - fix the table and make the line graph shorter so you won't have scrolling based on. 
 - The professor advised us to "add caching to your project to optimize performance and reduce computation time, especially for expensive or repetitive tasks. 
+
 Feedbacks adressed from our Peers
 - Removed "DSCI_553" from the "About" section.
 - Add a tooltip or something to indicate the country name on table.
@@ -18,29 +19,22 @@ Feedbacks adressed from our Peers
 
 
 
-## 4. Performance improvements
+## 3. Performance improvements
 ### Data Loading & Preprocessing:
 - We loaded and preprocessed vessel data in `data.py`, combining CSV files into a single DataFrame.
 - We used vectorized operations for calculating the anchored duration, significantly speeding up the process by avoiding loops.
 - The data was filtered by a date parameter if provided, ensuring we only worked with relevant data.
 
 ### Caching:
-- To improve app performance, we implemented caching using Flask-Caching. This allowed us to cache the processed datasets and graphs (such as the port table, trend graph, and map) for 10 minutes.
-- This caching system enabled faster data retrieval, reducing the need to reload or recalculate every time the user interacts with the dashboard.
+- To improve app performance, we implemented caching using Flask-Caching. This allowed us to cache the processed datasets and graphs (such as the port table, trend graph, and map).
 
 ### Dashboard Layout:
-- We designed the layout using Dash's Bootstrap components, creating a user-friendly interface. This included summary metrics, filters, and sections for displaying the map, port data, and trend graphs.
-- The map and data visualizations were cached to avoid frequent re-rendering, further improving performance.
+- We designed the layout using Dash's components, creating a user-friendly interface. This included summary metrics, filters, and sections for displaying the map, port data, and trend graphs.
 
 ### Data Handling for Remote Deployment:
 - For remote deployment, we used CSV files to avoid memory and rendering issues, since Parquet files caused memory errors due to the large data size. While Parquet files were faster for local use, we opted for CSV files in the remote environment to ensure stability and smooth performance.
 
-### Challenges:
-- Encountered memory errors with large Parquet files during remote deployment.
-- Solved the issue by switching to CSV files remotely, balancing performance with stability.
-
-## 5. App refinement
-### Final App Improvements:
+## 4. App refinement
 This week, we focused on tying everything together and delivering a production-ready app. We made several enhancements to improve both the functionality and the overall user experience.
 
 1. **Date Filtering Label**: 
@@ -56,7 +50,7 @@ This week, we focused on tying everything together and delivering a production-r
 
 By implementing these changes, we have made significant improvements to the app's usability and visual appeal, while maintaining a focus on functionality.
 
-## 6. Smaller fixes and touch-ups
+## 5. Smaller fixes and touch-ups
 
 - **Tab Title**: We have updated the tab title of the dashboard in the browser to make it more descriptive and reflective of the final stage of the app.
 
@@ -71,7 +65,7 @@ By implementing these changes, we have made significant improvements to the app'
     For the table, we’ve added buttons to allow users to view more port names. The "Next" button, for example, helps navigate through the data easily. This ensures the user can explore the entire data set without feeling limited by the visible portion of the table.
 
 
-## 7. Reflection
+## 6. Reflection
 
 In comparison to Milestone 3, our dashboard is now much faster. We implemented several techniques to improve its performance, and this speed improvement is easily noticeable in the deployed version. Some of the key optimizations we made include:
 
@@ -94,4 +88,4 @@ In terms of **visualization best practices**, we focused on improving clarity an
 Overall, the dashboard is in a much better place now than it was in Milestone 3. Its performance is smoother, and it is more user-friendly. Going forward, we would consider adding more features such as dynamic date selection or the ability to export data directly from the dashboard.
 
 
-## 8. Set up tests and write docstrings (Optional)
+## 7. Set up tests and write docstrings (Optional)
