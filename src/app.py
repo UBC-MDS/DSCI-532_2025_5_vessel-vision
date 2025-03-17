@@ -207,8 +207,12 @@ port_section = dbc.Col([
 # App layout
 app.layout = dbc.Container([
     html.Div([
-        html.H1("Vessel Vision", className="text-center mb-0"),
-        html.H5("- 🚢 AIS Unique Vessel Tracking - ", className="text-center text-muted")
+        html.H1([
+            html.Span("🚢", style={"fontSize": "4rem", "marginRight": "2rem"}),  # Bigger left ship emoji
+            "Vessel Vision",
+            html.Span("🚢", style={"fontSize": "4rem", "marginLeft": "2rem"})   # Bigger right ship emoji
+        ], className="text-center mb-0", style={"display": "flex", "justifyContent": "center", "alignItems": "center"}),
+        html.H5("- AIS Unique Vessel Tracking -", className="text-center text-muted")
     ], className="my-2"),
 
     # Summary Metrics Row
