@@ -89,3 +89,4 @@ Overall, the dashboard is in a much better place now than it was in Milestone 3.
 
 
 ## 7. Set up tests and write docstrings (Optional)
+- As part of refining our project and ensuring it is maintainable and easily understandable, we made sure that all of our functions have docstrings.
