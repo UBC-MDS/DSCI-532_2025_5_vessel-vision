@@ -6,18 +6,22 @@ def load_data(date_filter=None):
     """
     Load and preprocess vessel data with completely vectorized anchored duration calculation.
     """
+    
     # Define the root directory and the split-file folder path
     root_dir = os.path.dirname(os.path.abspath(__file__))
-    split_file_dir = os.path.join(root_dir, '..', 'data', 'processed')
+    split_file_dir = os.path.join(root_dir, '..', 'data', 'split-data')
     
     # List all CSV files in the split-file folder
-    csv_files = [f for f in os.listdir(split_file_dir) if f.endswith('.parquet')]
+    csv_files = [f for f in os.listdir(split_file_dir) if f.endswith('.csv')]
     
     # Read all CSV files and combine them into one DataFrame
     combined_df = pd.concat(
-        [pd.read_parquet(os.path.join(split_file_dir, csv_file)) for csv_file in csv_files],
+        [pd.read_csv(os.path.join(split_file_dir, csv_file)) for csv_file in csv_files],
         ignore_index=True
     )
+    
+    
+
     
     # Ensure the 'BaseDateTime' is in datetime format
     combined_df['BaseDateTime'] = pd.to_datetime(combined_df['BaseDateTime'], errors='coerce')
