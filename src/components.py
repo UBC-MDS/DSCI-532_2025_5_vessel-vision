@@ -7,6 +7,15 @@ def create_filters(vessel_types, nearest_ports, vessel_names, dates):
     """
     This function will create all the filters: dropdowns for vessel type, nearest port, vessel name,
     and radio button for date.
+    
+    Args:
+    vessel_types (list): List of vessel types to be used in the dropdown.
+    nearest_ports (list): List of nearest ports to be used in the dropdown.
+    vessel_names (list): List of vessel names to be used in the dropdown.
+    dates (list): List of dates for the radio items.
+
+    Returns:
+    html.Div: A Dash Div component containing the filter dropdowns and radio items.
     """
     return html.Div([
         dcc.Dropdown(
@@ -35,6 +44,12 @@ def create_map(filtered_df):
     """
     This function generates a map with the filtered DataFrame.
     It also adds summary information (total unique vessels) to the map title and as an annotation.
+    
+    Args:
+    filtered_df (DataFrame): The filtered DataFrame containing vessel data.
+    
+    Returns:
+    plotly.graph_objects.Figure: A Plotly figure object containing the map.
     """
     unique_count = filtered_df["MMSI"].nunique()
     
@@ -84,7 +99,15 @@ COUNTRY_NAMES = {
 }
 
 def create_port_table(port_result_df):
-    """Create a Bootstrap Card containing the Port Table with hover tooltips."""
+    """
+    Create a Bootstrap Card containing the Port Table with hover tooltips.
+    
+    Args:
+    port_result_df (DataFrame): The DataFrame containing port-related data.
+    
+    Returns:
+    dbc.Card: A Dash Bootstrap card containing a table with port data and hover tooltips.
+    """
     return dbc.Card(
         dbc.CardBody([
             html.H5("Number of Arrivals & Departures per Port", style={"fontFamily": "Arial, sans-serif"}),
@@ -141,6 +164,17 @@ def create_port_table(port_result_df):
 
 # Function to create Bootstrap-styled summary cards
 def create_summary_card(title, value, color):
+    """
+    Create a summary card displaying a title and value.
+    
+    Args:
+    title (str): The title of the card.
+    value (str): The value to display inside the card.
+    color (str): The background color of the card.
+    
+    Returns:
+    dbc.Card: A Bootstrap card component.
+    """
     return dbc.Card(
         dbc.CardBody([ 
             html.H5(title, className="card-title"),
@@ -151,6 +185,15 @@ def create_summary_card(title, value, color):
 
 # Function to create trend graph
 def create_trend_graph(df):
+    """
+    This function generates a trend graph of unique vessels over time (hour of the day).
+    
+    Args:
+    df (DataFrame): The DataFrame containing the vessel data with an 'Hour' column.
+    
+    Returns:
+    dcc.Graph: A Dash component displaying the trend graph.
+    """
     df_trend = df.groupby('Hour').size().reset_index(name='Unique Vessels')
 
     fig = go.Figure()
@@ -182,6 +225,12 @@ def create_trend_graph(df):
 
 # Function to create the footer
 def create_footer():
+    """
+    This function generates the footer section for the web application.
+    
+    Returns:
+    html.Footer: A Dash Footer component containing the footer information.
+    """
     return html.Footer(
         dbc.Container(
             dbc.Row(

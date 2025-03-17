@@ -4,8 +4,19 @@ import numpy as np
 
 def load_data(date_filter=None):
     """
-    Load and preprocess vessel data with completely vectorized anchored duration calculation.
+    Load and preprocess vessel data from multiple CSV files, performing 
+    a vectorized calculation of the duration that vessels are anchored. 
+    
+    Args:
+        date_filter (str, optional): If provided, filters the data to only 
+                                      include rows from this specific date 
+                                      (format 'YYYY-MM-DD').
+    
+    Returns:
+        pd.DataFrame: A DataFrame containing vessel data with calculated 
+                      anchored durations and additional date-time features.
     """
+    
     # Define the root directory and the split-file folder path
     root_dir = os.path.dirname(os.path.abspath(__file__))
     split_file_dir = os.path.join(root_dir, '..', 'data', 'split-data')
