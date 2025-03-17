@@ -6,9 +6,9 @@
 
 ## 2. Address feedback from me and your peers
 
-Feedbacks addressed from Professros:
+Feedbacks addressed from Professors:
 - fix the table and make the line graph shorter so you won't have scrolling based on. 
-- The professor advised us to "add caching to your project to optimize performance and reduce computation time, especially for expensive or repetitive tasks. 
+- The professor advised us to "add caching to your project to optimize performance and reduce computation time, especially for expensive or repetitive tasks". 
 
 Feedbacks adressed from our Peers
 - Removed "DSCI_553" from the "About" section.
